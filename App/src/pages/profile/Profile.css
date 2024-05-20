@@ -1,0 +1,110 @@
+.Use {
+    width: 100%;
+    min-height: 100vh;
+    background: url('../../assets/Backgrounds/SL-090119-22970-01.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 0;
+    font-family: "Kanit", sans-serif;
+    font-style: normal;
+    padding-bottom: 100px;
+
+}
+
+.perfil {
+    height: 300px;
+    width: 95%;
+    background-color: #0000005e;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px 0;
+}
+
+.Equipe {
+    width: 95%;
+    background-color: #0000005e;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-top: 10px;
+}
+
+.Equipe .cards {
+    background-color: transparent;
+    gap: 5px;
+}
+
+.changeBackcard {
+    width: 95%;
+    background-color: #0000005e;
+    border-radius: 20px;
+    padding-top: 20px;
+}
+.CB-Back{
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    align-items: center;
+}
+.CB-Back img{
+    width: 100px;
+    height: 150px;
+    border-radius: 20px;
+    border: 4px solid #707070;
+}
+
+
+.p-top {
+    display: flex;
+    flex-direction: column;
+}
+
+.p-bottom {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.Allcards,
+.lendarias,
+.OurCards {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #fff;
+}
+
+.Use h3,
+.Use h2 {
+    font-size: 20px;
+    margin: 0;
+    color: #fff;
+}
+
+.Use h2 {
+    font-size: 25px;
+}
+
+.Equipe h3 {
+    font-size: 30px;
+}
+
+.EquipeB {
+    width: 100%;
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+

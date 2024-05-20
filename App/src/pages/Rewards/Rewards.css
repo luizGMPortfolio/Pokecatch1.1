@@ -1,0 +1,55 @@
+.inicial {
+    width: 100%;
+    min-height: 100vh;
+    background: url('../../assets/Backgrounds/Initial.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    z-index: 10;
+}
+
+.inicial footer {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100px;
+    bottom: 150px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.inicial .title{
+    position: fixed;
+    top: 30px;
+}
+.inicial .title h3{
+    font-size: 30px;
+}
+.inicial .items {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.inicial .items img {
+    width: 40px;
+    height: 40px;
+}
+.inicial footer span{
+    font-size: 20px;
+    font-weight: bold;
+    color: #1c1c1c;
+}
+
+.inicial button{
+    position: fixed;
+    bottom: 50px;
+    scale: 1.2;
+}

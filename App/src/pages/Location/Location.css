@@ -1,0 +1,178 @@
+.location{
+    width: 100%;
+    min-height: 100vh;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+
+}
+.location header{
+    width: 100%;
+    display: flex;
+    justify-content:space-between;
+}
+.possibilities{
+    width: 100%;
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 20px 0;
+}
+.possibilities .list{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #0000006e;
+    border-radius: 70px;
+    padding: 10px;
+    margin: 0 5px;
+}
+.ContagemLocation{
+    width: 35%;
+    display: flex;
+    flex-direction: column;
+    font-family: "Inter", sans-serif;
+    font-weight: bold;
+    margin: 10px 0;text-align: center;
+}
+.ContagemLocation .text{
+    font-size: 20px;
+}
+.ContagemLocation .time{
+    font-size: 40px;
+}
+
+.possibilities img{
+    width: 50px;
+    height: 50px;
+    filter:brightness(0);
+    transition: 100ms;
+}
+.possibilities img:hover{
+    transform: translatey(-10px);
+}
+.back{
+    width: 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.back a{
+ color: #000000;
+}
+.back span{
+    scale: 1.5;
+    background-color: #00000071;
+    border-radius: 50%;
+}
+.back span:hover{
+    color: #fff;
+}
+.enconter{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80%;
+    margin-top: 10%;
+}
+.enconter img{
+    margin-top: 10px;
+    width: 320px;
+    height: 320px;
+    animation: jump 4s infinite, rotate 15s infinite;
+}
+@keyframes jump {
+    0%{
+        transform: translatey(0);
+        animation-timing-function: cubic-bezier(0.28, 0.84, 0.42, 1);
+    }
+    5%{
+        transform: translatey(-10px);
+    }
+    10%{
+        transform: translatey(0);
+        animation-timing-function: cubic-bezier(0.28, 0.84, 0.42, 1);
+    }
+    15%{
+        transform: translatey(-10px);
+    }
+    20% {
+        transform: translatey(0);
+        animation-timing-function: cubic-bezier(0.28, 0.84, 0.42, 1);
+    }
+}
+@keyframes rotate {
+    0%{
+        transform: rotate(0);
+        animation-timing-function: cubic-bezier(0.28, 0.84, 0.42, 1);
+    }
+    1%{
+        transform: rotate(-10deg);
+    }
+    2%{
+        transform: rotate(0);
+        animation-timing-function: cubic-bezier(0.28, 0.84, 0.42, 1);
+    }
+    3%{
+        transform: rotate(-10deg);
+    }
+    4% {
+        transform: rotate(0);
+        animation-timing-function: cubic-bezier(0.28, 0.84, 0.42, 1);
+    }
+}
+.forest{
+    background: url('../../assets/Backgrounds/Floresta.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.cave{
+    background: url('../../assets/Backgrounds/caverna6.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.mountain{
+    background: url('../../assets/Backgrounds/montanha4.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center; 
+}
+.beach{
+    background: url('../../assets/Backgrounds/praia2.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center; 
+}
+.desert{
+    background: url('../../assets/Backgrounds/deserto3.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center; 
+}
+.vulcano{
+    background: url('../../assets/Backgrounds/vulção.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center; 
+}
+.HantedHouse{
+    background: url('../../assets/Backgrounds/ghost.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center; 
+}
+
+
+@media (max-width: 768px) {
+    .possibilities .list{
+        scale: 0.6;
+    }
+    .enconter{
+        margin-top: 15%;
+    }
+}
