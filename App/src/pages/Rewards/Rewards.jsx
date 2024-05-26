@@ -16,13 +16,11 @@ import Card from '../../components/Card';
 
 
 
-const Rewards = ({rewards, setRewards}) => {
-
-    const { RandonPokemon, pokemon, loading: Randonloading, error: Randonerror } = useRandonPokemon();
-    const { RandonPokeball, pokebolas: Rpokebolas, loading: Rloading, error: Rerror } = useRandonPokeball();
+const Rewards = ({ rewards, setRewards, user }) => {
 
 
-
+    const { documents: posts } = useFetchDocuments("status", user.uid);
+    const { updateDocument, response } = useUpdateDocument("status");
 
 
     const [id, setId] = useState()
@@ -32,18 +30,42 @@ const Rewards = ({rewards, setRewards}) => {
 
 
     useEffect(() => {
-        RandonPokeball()
-        RandonPokemon()
-      }, [pokemon])
+        if (posts) {
+            console.log(posts[0])
+            setPokemons([...posts[0].pokemons, rewards.pokemon.id])
+            setPokebolas({
+                pokebola: posts[0].pokebolas.pokebola + rewards.pokebolas.pokebolas.pokebola,
+                great: posts[0].pokebolas.great + rewards.pokebolas.pokebolas.great,
+                ultra: posts[0].pokebolas.ultra + rewards.pokebolas.pokebolas.ultra,
+                master: posts[0].pokebolas.master + rewards.pokebolas.pokebolas.master
+            })
+            if (posts[0].time.length < 3) {
+                setTime([...posts[0].time, rewards.pokemon])
+            } else {
+                setTime(posts[0].time)
+            }
+        }
+    }, [posts])
 
-    const data = {
-        pokemons,
-        pokebolas,
-        time
+
+
+    const handleUpdate = () => {
+
+        const data = {
+            pokemons,
+            pokebolas,
+            time
+        }
+
+        console.log(data)
+
+        updateDocument(posts[0].id, data);
+
+        console.log(response)
+
+        setRewards(null)
+
     }
-
-    console.log(rewards)
-
 
 
     return (
@@ -55,7 +77,7 @@ const Rewards = ({rewards, setRewards}) => {
                 </div>
             }
 
-            {Randonloading &&
+            {!rewards &&
                 <Card Style={'Back'} />
             }
             {rewards &&
@@ -75,7 +97,7 @@ const Rewards = ({rewards, setRewards}) => {
                     </div>
                 }
             </footer>
-            <button onClick={() => setRewards(null)}>OK</button>
+            <button onClick={() => handleUpdate()}>OK</button>
 
         </div>
     )

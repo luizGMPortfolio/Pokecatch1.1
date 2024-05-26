@@ -48,7 +48,7 @@ function App() {
   }
 
   if (rewards) {
-    return <Rewards rewards={rewards} setRewards={setRewards} />
+    return <Rewards rewards={rewards} setRewards={setRewards} user={user}/>
   }
 
 

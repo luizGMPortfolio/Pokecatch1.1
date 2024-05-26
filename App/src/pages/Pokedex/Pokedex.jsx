@@ -3,13 +3,18 @@ import './Pokedex.css'
 //hooks
 import React, { useRef, useState, useEffect } from 'react';
 import { useFetchPokemons } from '../../hooks/useFetchPokemons';
+import { useFetchDocuments } from '../../hooks/useFetchDocuments';
 //imports
 import axios from 'axios';
 //components
 import Card from '../../components/Card';
 import Navbar from '../../components/Navbar';
+import ListCards from '../../components/ListCards';
 //context
+import { useAuthValue } from '../../context/AuthContext'
 import { useListValue } from '../../context/ListContext'
+import { Link } from 'react-router-dom';
+
 
 function Pokedex() {
 
@@ -18,9 +23,21 @@ function Pokedex() {
   const [Gen, setGen] = useState('Generations');
   const [Region, setRegion] = useState('Region');
   const [aba, setAba] = useState('seus');
+  const [OurPokemons, setOurPokemons] = useState([])
 
   const { loading, erro } = useFetchPokemons();
   const { List } = useListValue();
+  const { user } = useAuthValue();
+
+  const { documents: posts } = useFetchDocuments("status", user.uid);
+
+  useEffect(() => {
+    if (posts) {
+      console.log(posts[0])
+      setOurPokemons(posts[0].pokemons)
+    }
+  }, [posts])
+
 
 
   return (
@@ -100,14 +117,38 @@ function Pokedex() {
             </div>
           </div>
           <div className='cards'>
-            {List && List.map((pokemon) => (
-              <Card
-                name={pokemon.name}
-                img={pokemon.sprites.other["official-artwork"].front_default}
-                types={pokemon.types}
-                num={pokemon.id}
-              />
-            ))}
+
+
+
+            {!loading &&
+              <>
+                {List && List.map((pokemon) => (
+                  <>
+                    {aba === 'seus' && OurPokemons.map((OurPokemon) => (
+                      <>
+                        {OurPokemon === pokemon.id &&
+                          <Card
+                            name={pokemon.name}
+                            img={pokemon.sprites.other["official-artwork"].front_default}
+                            types={pokemon.types}
+                            num={pokemon.id}
+                          />
+                        }
+                      </>
+                    ))}
+                    {aba === 'all' &&
+                      <Card
+                        name={pokemon.name}
+                        img={pokemon.sprites.other["official-artwork"].front_default}
+                        types={pokemon.types}
+                        num={pokemon.id}
+                      />
+                    }
+                  </>
+                ))}
+              </>
+
+            }
             {loading &&
               <div className='loading'>
                 <Card Style={'Back'} />
@@ -122,9 +163,8 @@ function Pokedex() {
                 <Card Style={'Back'} />
                 <Card Style={'Back'} />
                 <Card Style={'Back'} />
-              </div>
+              </div>}
 
-            }
           </div>
         </div>
       </div>
