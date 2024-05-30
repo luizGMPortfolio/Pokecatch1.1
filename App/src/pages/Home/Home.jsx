@@ -4,7 +4,8 @@ import './Home.css'
 //hooks
 import { useEffect, useState } from 'react'
 import { Link } from "react-router-dom";
-import Time from '../../hooks/Time';
+
+import { Time } from '../../hooks/useTime';
 
 //imports
 import pinheiro from '../../assets/Icones/pinheiro.png'
@@ -21,12 +22,12 @@ import { useAuthValue } from '../../context/AuthContext'
 //components
 import Navbar from '../../components/Navbar';
 
-import { useNavigate, useParams } from "react-router-dom";
 
 
 const Home = () => {
 
   const { user } = useAuthValue();
+  const { horarioAtual } = Time();
   const uid = user.uid;
 
   return (
@@ -35,7 +36,10 @@ const Home = () => {
       <div className='Home'>
         <div className='Contagem'>
           <span className='text'>Next update</span>
-          <Time />
+          <div className="time">
+            <span>{horarioAtual}</span>
+          </div>
+
         </div>
         <div className='Locais'>
           <ul>

@@ -19,8 +19,10 @@ import Card from '../../components/Card';
 const Rewards = ({ rewards, setRewards, user }) => {
 
 
-    const { documents: posts } = useFetchDocuments("status", user.uid);
-    const { updateDocument, response } = useUpdateDocument("status");
+    const { documents: itens } = useFetchDocuments("itens", user.uid);
+    const { documents: status } = useFetchDocuments("status", user.uid);
+    const { updateDocument: updateItens, response: ItensResponse } = useUpdateDocument("itens");
+    const { updateDocument: updateStatus, response: StatusResponse } = useUpdateDocument("status");
 
 
     const [id, setId] = useState()
@@ -28,45 +30,57 @@ const Rewards = ({ rewards, setRewards, user }) => {
     const [pokebolas, setPokebolas] = useState({})
     const [time, setTime] = useState([])
 
+    const [cards, setCards] = useState(0)
+    const [enconters, setEnconters] = useState(0)
+    const [legendary, setLegendary] = useState(0)
+
+
 
     useEffect(() => {
-        if (posts) {
-            console.log(posts[0])
-            setPokemons([...posts[0].pokemons, rewards.pokemon.id])
+        if (itens) {
+            console.log(itens[0])
+            setPokemons([...itens[0].pokemons, rewards.pokemon.id])
             setPokebolas({
-                pokebola: posts[0].pokebolas.pokebola + rewards.pokebolas.pokebolas.pokebola,
-                great: posts[0].pokebolas.great + rewards.pokebolas.pokebolas.great,
-                ultra: posts[0].pokebolas.ultra + rewards.pokebolas.pokebolas.ultra,
-                master: posts[0].pokebolas.master + rewards.pokebolas.pokebolas.master
+                pokebola: itens[0].pokebolas.pokebola + rewards.pokebolas.pokebolas.pokebola,
+                great: itens[0].pokebolas.great + rewards.pokebolas.pokebolas.great,
+                ultra: itens[0].pokebolas.ultra + rewards.pokebolas.pokebolas.ultra,
+                master: itens[0].pokebolas.master + rewards.pokebolas.pokebolas.master
             })
-            if (posts[0].time.length < 3) {
-                setTime([...posts[0].time, rewards.pokemon])
+            if (itens[0].time.length < 3) {
+                setTime([...itens[0].time, rewards.pokemon])
             } else {
-                setTime(posts[0].time)
+                setTime(itens[0].time)
             }
         }
-    }, [posts])
 
+    }, [itens])
+
+    useEffect(() => {
+        if(status){
+            setCards(status[0].cards)
+            setEnconters(status[0].enconters)
+            setLegendary(status[0].legendary)
+        }
+    }, [status])
 
 
     const handleUpdate = () => {
 
-        const data = {
+        const DataItens = {
             pokemons,
             pokebolas,
             time
         }
+        updateItens(itens[0].id, DataItens);
 
-        console.log(data)
-
-        updateDocument(posts[0].id, data);
-
-        console.log(response)
+        const DataStatus = {
+            cards: cards + 1,
+        }
+        updateStatus(status[0].id, DataStatus);
 
         setRewards(null)
 
     }
-
 
     return (
         <div className='inicial'>

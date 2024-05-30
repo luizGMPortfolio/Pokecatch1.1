@@ -215,12 +215,13 @@
 
 
 
-.cards{
+.pokedex .cards{
     padding: 20px 0;
     display: flex;
     flex-wrap:wrap;
     justify-content: center;
     width: 100%;
+    min-height: 515px;
     height: 100%;
     gap: 20px;
     background-color: #ffffff69;

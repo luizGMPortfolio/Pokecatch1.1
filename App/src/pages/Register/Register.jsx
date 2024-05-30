@@ -6,16 +6,14 @@ import logo from '../../assets/Icones/LogoPokecatch.png'
 //hooks
 import { Link } from 'react-router-dom'
 import { useEffect, useState } from 'react'
-import { useNavigate } from "react-router-dom";
 import { useAuthentication } from '../../hooks/useAuthentication';
 import { useInsertDocument } from "../../hooks/useInsertDocument";
-
+import { Time } from '../../hooks/useTime';
 
 //rewards
 import { useRandonPokemon } from '../../hooks/useRandonPokemon';
 import { useRandonPokeball } from '../../hooks/useRandowPokeballs';
-import { useFetchDocuments } from '../../hooks/useFetchDocuments';
-import { useRewards } from '../../hooks/useRewards';
+import { useLocationsChange } from '../../hooks/useLocationsChange';
 
 
 
@@ -25,7 +23,6 @@ const Register = ({ setRewards }) => {
 
   const { RandonPokemon, pokemon, loading: Randonloading, error: Randonerror } = useRandonPokemon();
   const { RandonPokeball, pokebolas: Rpokebolas, loading: Rloading, error: Rerror } = useRandonPokeball();
-  const { rewards, NewReward } = useRewards();
 
 
   const [displayName, setDisplayName] = useState('');
@@ -35,10 +32,22 @@ const Register = ({ setRewards }) => {
   const [error, setError] = useState('');
 
   const { createUser, error: authError, loading } = useAuthentication();
-  const { insertDocument, response } = useInsertDocument("status");
+  const { insertDocument: insertItens, response: resItens } = useInsertDocument("itens");
+  const { insertDocument: insertStatus, response: resStatus } = useInsertDocument("status");
+  const { insertDocument: insertConfigs, response: resConfigs } = useInsertDocument("Configs");
+  const { location } = useLocationsChange();
+  const { DiaAtual } = Time();
 
-  const navigate = useNavigate();
+  useEffect(() => {
+    if (authError) {
+      setError(authError)
+    }
 
+  }, [authError])
+  useEffect(() => {
+    RandonPokeball()
+    RandonPokemon()
+  }, [pokemon])
 
 
   const handleSubmit = async (e) => {
@@ -60,8 +69,9 @@ const Register = ({ setRewards }) => {
     try {
 
       const res = await createUser(user)
+      await location
 
-      insertDocument({
+      insertItens({
         pokemons: [],
         pokebolas: {
           pokebola: 5,
@@ -73,7 +83,20 @@ const Register = ({ setRewards }) => {
         uid: res.uid,
         createdBy: res.displayName,
       });
-
+      insertStatus({
+        cards: 0,
+        enconters: 0,
+        legendary: 0,
+        uid: res.uid,
+        createdBy: res.displayName,
+      });
+      insertConfigs({
+        locations: location,
+        pokemons: [],
+        Date: DiaAtual,
+        uid: res.uid,
+        createdBy: res.displayName,
+      })
 
       const NewRewards = {
         pokemon: pokemon,
@@ -88,18 +111,6 @@ const Register = ({ setRewards }) => {
     }
 
   };
-
-  useEffect(() => {
-    if (authError) {
-      setError(authError)
-    }
-
-  }, [authError])
-  useEffect(() => {
-    RandonPokeball()
-    RandonPokemon()
-  }, [pokemon])
-
 
   return (
 
@@ -158,7 +169,7 @@ const Register = ({ setRewards }) => {
             <button className='btn' disabled>Aguarde...</button>
           }
           {error && <p className='error'>{error}</p>}
-          {response.error && <p className='error'>{error}</p>}
+          {resItens.error && <p className='error'>{error}</p>}
         </form>
         <div className='register'>
           <Link to='/'>Logar</Link>

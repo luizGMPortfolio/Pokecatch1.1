@@ -1,6 +1,9 @@
 import { useState, useEffect, useReducer } from "react";
-import { db } from "../firebase/config";
+import { db, Database } from "../firebase/config";
 import { collection, addDoc, Timestamp } from "firebase/firestore";
+
+import { useFetchPokemons } from "./useFetchPokemons";
+
 
 const initialState = {
   loading: null,
@@ -22,7 +25,7 @@ const insertReducer = (state, action) => {
 
 export const useInsertDocument = (docCollection) => {
   const [response, dispatch] = useReducer(insertReducer, initialState);
-
+  const { Filters } = useFetchPokemons();
   // deal with memory leak
   const [cancelled, setCancelled] = useState(false);
 
@@ -51,6 +54,7 @@ export const useInsertDocument = (docCollection) => {
       checkCancelBeforeDispatch({ type: "ERROR", payload: error.message });
     }
   };
+
 
   useEffect(() => {
     return () => setCancelled(true);

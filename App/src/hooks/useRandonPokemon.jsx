@@ -2,6 +2,8 @@
 import { useEffect, useState } from "react"
 //imports
 import axios from "axios";
+//hooks
+
 
 export const useRandonPokemon = () => {
 
@@ -11,6 +13,9 @@ export const useRandonPokemon = () => {
     const [loading, setLoading] = useState(null)
 
     const [cancelled, setCancelled] = useState(false);
+
+
+
 
     const RandonNumber = (number) => {
         return Math.floor(Math.random() * number);
@@ -58,9 +63,58 @@ export const useRandonPokemon = () => {
         setLoading(false);
     }
 
+    const RandowPokemonsLocations = (types) => {
+
+
+
+        const type = []
+
+        for (let index = 0; index < 9; index++) {
+
+            const number = Math.floor(Math.random() * 100);
+            var t = []
+            var num = 0
+
+            if (number > 50) {
+                t = types[0]
+                num = Math.floor(Math.random() * t.length);
+            } else if (number > 35) {
+                t = types[1]
+                num = Math.floor(Math.random() * t.length);
+            } else if (number > 25) {
+                t = types[2]
+                num = Math.floor(Math.random() * t.length);
+            } else if (number > 15) {
+                t = types[3]
+                num = Math.floor(Math.random() * t.length);
+            } else if (number > 10) {
+                t = types[4]
+                num = Math.floor(Math.random() * t.length);
+            } else {
+                t = types[5]
+                num = Math.floor(Math.random() * t.length);
+            }
+
+
+            type.map((item) => {
+                if (item === t[num]) {
+                    num = Math.floor(Math.random() * t.length);
+                }
+            })
+            type.push(t[num])
+
+
+        }
+        console.log(type)
+        return type
+
+    }
+
+
+
     useEffect(() => {
         return () => setCancelled(true);
     }, []);
 
-    return { RandonPokemon, RandonHowPokemons, RandonNumber, pokemon, pokemons, loading, error };
+    return { RandonPokemon, RandonHowPokemons, RandonNumber, RandowPokemonsLocations, pokemon, pokemons, loading, error };
 }

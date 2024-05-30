@@ -1,22 +1,96 @@
 //css
 import './Location.css'
 
+
 //hooks
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
-
+import { useFetchPokemons } from '../../hooks/useFetchPokemons';
+import { useFetchDocuments } from '../../hooks/useFetchDocuments';
+import { Time } from '../../hooks/useTime'
+import axios from 'axios';
+//context
+import { useAuthValue } from '../../context/AuthContext';
 
 const Location = () => {
 
   const { id } = useParams();
+  const { user } = useAuthValue();
+  const [error, setError] = useState(null)
+
+  const { documents: posts, loading } = useFetchDocuments("Configs", user.uid);
+  const { FetchPokemon } = useFetchPokemons()
+  const [Locations, setLocations] = useState()
+  const [pokemons, setPokemons] = useState([])
+  const [pokemon, setPokemon] = useState(null)
+  const { horarioAtual } = Time();
+
+  const GetPokemon = async () => {
+    try {
+      const num = Math.floor(Math.random() * 9)
+      const info = []
+
+      for (let index = 0; index < 9; index++) {
+        const p = await FetchPokemon(Locations[index])
+
+        if (num === index) {
+          setPokemon(p)
+        }
+        info.push(p)
+      }
+      setPokemons(info)
+    } catch (error) {
+      console.log(error);
+      setError(error.message);
+    }
+
+
+  }
+
+  useEffect(() => {
+    if (posts) {
+      switch (id) {
+        case 'forest':
+          setLocations(posts[0].locations.forest)
+          break
+        case 'cave':
+          setLocations(posts[0].locations.cave)
+          break
+        case 'mountain':
+          setLocations(posts[0].locations.mountain)
+          break
+        case 'beach':
+          setLocations(posts[0].locations.beach)
+          break
+        case 'desert':
+          setLocations(posts[0].locations.desert)
+          break
+        case 'vulcano':
+          setLocations(posts[0].locations.vulcano)
+          break
+        case 'HantedHouse':
+          setLocations(posts[0].locations.HantedHouse)
+          break
+      }
+
+    }
+  }, [posts])
+
+
+  useEffect(() => {
+    if (Locations) {
+      GetPokemon();
+    }
+  }, [Locations])
+
 
   return (
     <div className={`location ${id}`}>
       <header>
         <div className='ContagemLocation'>
           <span className='text'>Next update</span>
-          <span className='time'>03:20:05</span>
+          <span className='time'>{horarioAtual}</span>
         </div>
         <div className='back'>
           <Link to='/'><span class="material-symbols-outlined">
@@ -27,20 +101,16 @@ const Location = () => {
       <div className='possibilities'>
 
         <div className="list">
-          <img src='https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/4.png'></img>
-          <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/10.png" alt="" />
-          <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/24.png" alt="" />
-          <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/66.png" alt="" />
-          <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/841.png" alt="" />
-          <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/6.png" alt="" />
-          <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/384.png" alt="" />
-          <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/310.png" alt="" />
-          <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/544.png" alt="" />
-          <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/464.png" alt="" />
+          {pokemons && pokemons.map((item) => (
+                <img src={item.sprites.other["official-artwork"].front_default} alt="" />
+          ))}
         </div>
+        
       </div>
       <div className='enconter'>
-        <img src='https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/384.png'></img>
+        {pokemon &&
+          <img src={pokemon.sprites.other["official-artwork"].front_default} alt="" />
+        }
       </div>
 
     </div>

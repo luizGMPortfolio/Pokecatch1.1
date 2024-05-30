@@ -12,12 +12,12 @@
     padding: 10px 0;
     font-family: "Kanit", sans-serif;
     font-style: normal;
-    padding-bottom: 100px;
+    padding-bottom: 150px;
 
 }
 
 .perfil {
-    height: 300px;
+
     width: 95%;
     background-color: #0000005e;
     border-radius: 20px;
@@ -25,9 +25,14 @@
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    padding: 10px 0;
+    padding: 20px 0;
+    gap: 10px;
 }
-
+.perfil span{
+    font-weight: bold;
+    font-size: 25px;
+    color: #ddddddc7;
+}
 .Equipe {
     width: 95%;
     background-color: #0000005e;
@@ -36,9 +41,41 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding-top: 10px;
+    padding: 20px 0;
 }
-
+.itens{
+    width: 95%;
+    background-color: #0000005e;
+    border-radius: 20px;
+    padding: 20px 0;
+    text-align: center;
+    
+}
+.itens h3{
+    font-size: 30px;
+}
+.itens ul{
+    margin: 20px auto;
+    padding: 0;
+    width: 90%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    color: #ddddddc7;
+    font-size: 20px;
+    font-weight: bold;
+    gap: 10%;
+}
+.itens ul li{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.itens img{
+    width: 50px;
+    height: 50px;
+}
 .Equipe .cards {
     background-color: transparent;
     gap: 5px;
@@ -52,13 +89,16 @@
 }
 .CB-Back{
     display: flex;
+    flex-direction: column;
     width: 100%;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
 }
 .CB-Back img{
-    width: 100px;
-    height: 150px;
+    margin: 20px 0;
+    width: 184px;
+    height: 284px;
+    
     border-radius: 20px;
     border: 4px solid #707070;
 }
@@ -72,30 +112,37 @@
 .p-bottom {
     width: 100%;
     display: flex;
-    justify-content: space-around;
-}
+    flex-wrap: wrap;
+    justify-content: center;
+    column-gap: 10%;
+    row-gap: 10px;
 
+}
+.p-bottom h2{
+    width: 100%;
+}
+.p-bottom span{
+    width: 10%;
+}
 .Allcards,
 .lendarias,
 .OurCards {
     display: flex;
-    flex-direction: column;
+    justify-content: center;
     align-items: center;
     color: #fff;
+    width: 150px;
 }
 
 .Use h3,
 .Use h2 {
-    font-size: 20px;
     margin: 0;
     color: #fff;
 }
-
 .Use h2 {
     font-size: 25px;
 }
-
-.Equipe h3 {
+.Use h3{
     font-size: 30px;
 }
 
@@ -108,3 +155,9 @@
 
 }
 
+.exit{
+    width: 95%;
+    font-size: 20px;
+    background-color: #ff2d2dec;
+    cursor: pointer;
+}

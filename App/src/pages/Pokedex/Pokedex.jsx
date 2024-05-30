@@ -29,7 +29,7 @@ function Pokedex() {
   const { List } = useListValue();
   const { user } = useAuthValue();
 
-  const { documents: posts } = useFetchDocuments("status", user.uid);
+  const { documents: posts } = useFetchDocuments("itens", user.uid);
 
   useEffect(() => {
     if (posts) {
@@ -37,6 +37,17 @@ function Pokedex() {
       setOurPokemons(posts[0].pokemons)
     }
   }, [posts])
+
+
+  function VerifyPokemon(id) {
+    var igual = false
+    OurPokemons.map((OurPokemon) => {
+      if (OurPokemon === id) {
+        igual = true
+      }
+    })
+    return igual
+  }
 
 
 
@@ -137,12 +148,26 @@ function Pokedex() {
                       </>
                     ))}
                     {aba === 'all' &&
-                      <Card
-                        name={pokemon.name}
-                        img={pokemon.sprites.other["official-artwork"].front_default}
-                        types={pokemon.types}
-                        num={pokemon.id}
-                      />
+                      <>
+                        {VerifyPokemon(pokemon.id) ? (
+                          <Card
+                            name={pokemon.name}
+                            img={pokemon.sprites.other["official-artwork"].front_default}
+                            types={pokemon.types}
+                            num={pokemon.id}
+                          />
+                        ) : (
+                          <Card
+                          name={pokemon.name}
+                          img={pokemon.sprites.other["official-artwork"].front_default}
+                          types={pokemon.types}
+                          num={pokemon.id}
+                          Style={'Ocult'}
+                        />
+                        )
+
+                        }
+                      </>
                     }
                   </>
                 ))}

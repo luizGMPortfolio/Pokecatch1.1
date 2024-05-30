@@ -13,6 +13,9 @@
     display: flex;
     justify-content:space-between;
 }
+.location .ContagemLocation{
+    color: #ffffffd2;
+}
 .possibilities{
     width: 100%;
     display: flex;
@@ -25,7 +28,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #0000006e;
+    background-color: #ffffff94;
     border-radius: 70px;
     padding: 10px;
     margin: 0 5px;
@@ -54,6 +57,7 @@
 .possibilities img:hover{
     transform: translatey(-10px);
 }
+
 .back{
     width: 30%;
     display: flex;
@@ -65,7 +69,7 @@
 }
 .back span{
     scale: 1.5;
-    background-color: #00000071;
+    background-color: #ffffff94;
     border-radius: 50%;
 }
 .back span:hover{

@@ -24,7 +24,7 @@ export const useRandonPokeball = () => {
         try {
             const RandonNunber = Math.floor(Math.random() * 100);
             var data = {}
-            if(RandonNunber <= 2){
+            if(RandonNunber === 0){
                 data ={
                     imagem: masterBall,
                     quantidade: 1,
@@ -36,7 +36,7 @@ export const useRandonPokeball = () => {
                     }
                 }
             }else if(RandonNunber <= 20){
-                const RandonNunber = Math.floor(Math.random() * 7);
+                const RandonNunber = Math.floor(Math.random() * 4);
                 data ={
                     imagem: ultraBall,
                     quantidade: RandonNunber + 1,
@@ -48,7 +48,7 @@ export const useRandonPokeball = () => {
                     }
                 }
             }else if(RandonNunber <= 50){
-                const RandonNunber = Math.floor(Math.random() * 20);
+                const RandonNunber = Math.floor(Math.random() * 5);
                 data ={
                     imagem: greatBall,
                     quantidade: RandonNunber + 5,
@@ -60,12 +60,12 @@ export const useRandonPokeball = () => {
                     }
                 }
             }else if(RandonNunber <= 100){
-                const RandonNunber = Math.floor(Math.random() * 20);
+                const RandonNunber = Math.floor(Math.random() * 10);
                 data ={
                     imagem: pokebola,
-                    quantidade: RandonNunber + 10,
+                    quantidade: RandonNunber + 5,
                     pokebolas: {
-                        pokebola: RandonNunber + 10,
+                        pokebola: RandonNunber + 5,
                         great: 0,
                         ultra: 0,
                         master: 0
@@ -80,10 +80,18 @@ export const useRandonPokeball = () => {
         }
         setLoading(false);
     }
+    const PokeballsImage = () => {
+        return{
+            pokebola: pokebola,
+            great: greatBall,
+            ultra: ultraBall,
+            master: masterBall
+        }
+    }
 
     useEffect(() => {
         return () => setCancelled(true);
     }, []);
 
-    return { RandonPokeball , pokebolas, loading, error };
+    return { RandonPokeball, PokeballsImage, pokebolas, loading, error };
 }

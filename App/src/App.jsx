@@ -8,7 +8,12 @@ import { onAuthStateChanged } from 'firebase/auth';
 //hooks
 import { useState, useEffect } from 'react';
 import { useAuthentication } from './hooks/useAuthentication';
+import { useFetchDocuments } from './hooks/useFetchDocuments.jsx';
 import { useFetchPokemons } from './hooks/useFetchPokemons.jsx';
+import { useLocationsChange } from './hooks/useLocationsChange.jsx';
+import { useUpdateDocument } from './hooks/useUpdateDocument.jsx';
+import { Time } from './hooks/useTime.jsx';
+
 
 //context
 import { AuthProvider } from './context/AuthContext';
@@ -22,7 +27,6 @@ import Pokedex from './pages/Pokedex/Pokedex.jsx';
 import How from './pages/How/How.jsx';
 import Rewards from './pages/Rewards/Rewards.jsx';
 import Location from './pages/Location/Location.jsx';
-
 //components
 import Profile from './pages/profile/Profile.jsx';
 
@@ -30,8 +34,14 @@ function App() {
 
   const [user, setUser] = useState(undefined)
   const [rewards, setRewards] = useState(null);
-  const { auth } = useAuthentication()
-  const { List, ListError: error, loading } = useFetchPokemons();
+  const { DiaAtual } = Time();
+
+  const { auth } = useAuthentication();
+  const { List } = useFetchPokemons();
+
+  const { documents: Configs, loading } = useFetchDocuments("Configs", auth.uid);
+  const { updateDocument: updateConfigs, response: ConfigsResponse } = useUpdateDocument("Configs");
+  const { location } = useLocationsChange()
 
   const loadingUser = user === undefined
 
@@ -40,7 +50,24 @@ function App() {
     onAuthStateChanged(auth, (user) => {
       setUser(user)
     })
+
   }, [auth]);
+
+
+  useEffect(() => {
+    if (Configs && location) {
+      if (DiaAtual != Configs.Date) {
+        const data = {
+          locations: location,
+          Date: DiaAtual
+        }
+
+        updateConfigs(Configs[0].id, data)
+      }
+    }
+
+  }, [Configs, location])
+
 
 
   if (loadingUser) {
@@ -48,7 +75,7 @@ function App() {
   }
 
   if (rewards) {
-    return <Rewards rewards={rewards} setRewards={setRewards} user={user}/>
+    return <Rewards rewards={rewards} setRewards={setRewards} user={user} />
   }
 
 
