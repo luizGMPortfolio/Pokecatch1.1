@@ -4,10 +4,12 @@ import './Login.css'
 //imports
 import logo from '../../assets/Icones/LogoPokecatch.png'
 
+
 //hooks
 import { Link } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { useAuthentication } from '../../hooks/useAuthentication';
+import { FcGoogle } from "react-icons/fc";
 
 const Login = () => {
 
@@ -79,6 +81,18 @@ const Login = () => {
                 </div>
                 {error && <p className='error'>{error}</p>}
             </div>
+            <div className='outher'>
+                <div className='division'>
+                    <hr />
+                    <span>ou</span>
+                    <hr />
+                </div>
+                <div className='google'>
+                    <span><FcGoogle />Google</span>
+                </div>
+            </div>
+
+
 
         </div>
     )

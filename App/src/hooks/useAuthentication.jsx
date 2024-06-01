@@ -5,7 +5,9 @@ import {
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
     updateProfile,
-    signOut
+    signOut,
+    signInWithPopup,
+    GoogleAuthProvider
 } from 'firebase/auth'
 
 import { useState, useEffect } from 'react'
@@ -93,6 +95,19 @@ export const useAuthentication = () => {
             setLoading(false);
         }
     }
+    const GoogleLogin = async () => {
+        try {
+            const provider = new GoogleAuthProvider();
+            provider.addScope('profile');
+            provider.addScope('email');
+            const result = await signInWithPopup(auth, provider);
+
+            console.log(result)
+        } catch (error) {
+            console.log(error.message)
+            console.log(typeof error.message)
+        }
+    }
 
     useEffect(() => {
         return () => setCancelled(true)
@@ -101,6 +116,7 @@ export const useAuthentication = () => {
     return {
         auth,
         createUser,
+        GoogleLogin,
         error,
         loading,
         logout,

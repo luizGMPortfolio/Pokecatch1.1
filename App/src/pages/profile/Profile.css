@@ -158,6 +158,10 @@
 .exit{
     width: 95%;
     font-size: 20px;
-    background-color: #ff2d2dec;
+    background-color: #0000005e;
     cursor: pointer;
+    transition: 200ms;
+}
+.exit:hover{
+    background-color: #ff2d2dec;
 }

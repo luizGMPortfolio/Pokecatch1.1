@@ -27,21 +27,24 @@ import Pokedex from './pages/Pokedex/Pokedex.jsx';
 import How from './pages/How/How.jsx';
 import Rewards from './pages/Rewards/Rewards.jsx';
 import Location from './pages/Location/Location.jsx';
-//components
 import Profile from './pages/profile/Profile.jsx';
+import Info from './components/Info.jsx';
+//components
+
 
 function App() {
 
   const [user, setUser] = useState(undefined)
   const [rewards, setRewards] = useState(null);
+  const [NovoDia, setNovoDia] = useState(null) 
+  const [doc, setDoc] = useState(null)
   const { DiaAtual } = Time();
 
   const { auth } = useAuthentication();
   const { List } = useFetchPokemons();
-
-  const { documents: Configs, loading } = useFetchDocuments("Configs", auth.uid);
+  const { documents: Configs, loading } = useFetchDocuments("Configs");
   const { updateDocument: updateConfigs, response: ConfigsResponse } = useUpdateDocument("Configs");
-  const { location } = useLocationsChange()
+  const { location } = useLocationsChange();
 
   const loadingUser = user === undefined
 
@@ -52,21 +55,31 @@ function App() {
     })
 
   }, [auth]);
-
+  useEffect(() => {
+    if (user && Configs) {
+      Configs.map((item) => {
+        if (item.uid === user.uid) {
+          setDoc(item)
+          setNovoDia(item.Date)
+        }
+      })
+    }
+  }, [Configs, user])
 
   useEffect(() => {
-    if (Configs && location) {
-      if (DiaAtual != Configs.Date) {
-        const data = {
-          locations: location,
-          Date: DiaAtual
-        }
+    if (doc && location) {
+        if (NovoDia != DiaAtual) {
+          const data = {
+            locations: location,
+            Date: DiaAtual
 
-        updateConfigs(Configs[0].id, data)
+          }
+
+          updateConfigs(doc.id, data)
+          setNovoDia(DiaAtual)
       }
     }
-
-  }, [Configs, location])
+  }, [doc, location])
 
 
 

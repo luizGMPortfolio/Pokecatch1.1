@@ -9,6 +9,8 @@ import { useEffect, useState } from 'react'
 import { useAuthentication } from '../../hooks/useAuthentication';
 import { useInsertDocument } from "../../hooks/useInsertDocument";
 import { Time } from '../../hooks/useTime';
+import { FcGoogle } from "react-icons/fc";
+
 
 //rewards
 import { useRandonPokemon } from '../../hooks/useRandonPokemon';
@@ -31,7 +33,7 @@ const Register = ({ setRewards }) => {
   const [ConfirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
 
-  const { createUser, error: authError, loading } = useAuthentication();
+  const { createUser, GoogleLogin, error: authError, loading } = useAuthentication();
   const { insertDocument: insertItens, response: resItens } = useInsertDocument("itens");
   const { insertDocument: insertStatus, response: resStatus } = useInsertDocument("status");
   const { insertDocument: insertConfigs, response: resConfigs } = useInsertDocument("Configs");
@@ -175,6 +177,16 @@ const Register = ({ setRewards }) => {
           <Link to='/'>Logar</Link>
         </div>
       </div>
+      <div className='outher'>
+                <div className='division'>
+                    <hr />
+                    <span>ou</span>
+                    <hr />
+                </div>
+                <div className='google'>
+                    <span onClick={GoogleLogin}><FcGoogle />Google</span>
+                </div>
+            </div>
 
     </div>
 

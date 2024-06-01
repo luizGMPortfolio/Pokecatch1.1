@@ -8,9 +8,6 @@
     font-style: normal;
   }
 
-
-
-
 form{
     display: flex;
     flex-direction: column;
@@ -44,4 +41,10 @@ label{
     display: flex;
     flex-direction: column;
     font-weight: bold;
+}
+
+hr{
+    width: 10%;
+    margin: 0;
+    background-color: #fff;
 }

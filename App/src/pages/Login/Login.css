@@ -4,25 +4,57 @@
     background-color: #505050;
     display: flex;
     flex-direction: column;
+    justify-content: space-around;
 }
 .logo{
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 40%;
+    height: 20%;
 }
 .inputs{
     display: flex;
     flex-direction: column;
     justify-content: center;
-    height: 60%;
 }
+.outher{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 10%;
+}
+.division{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    gap: 2%;
+}
+.google{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.google span{
+    background-color: #1c1c1c;
+    color: #fff;
+    padding: 5px 15px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
 .logo img{
-    scale: 0.5;
+    scale: 0.3;
 }
 .Login .register{
     color: #202020;
-    margin: 30px 0;
+    margin: 10px 0;
     width: 100%;
     display: flex;
     justify-content: center;

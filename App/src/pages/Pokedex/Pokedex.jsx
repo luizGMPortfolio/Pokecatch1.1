@@ -9,7 +9,7 @@ import axios from 'axios';
 //components
 import Card from '../../components/Card';
 import Navbar from '../../components/Navbar';
-import ListCards from '../../components/ListCards';
+import Info from '../../components/Info';
 //context
 import { useAuthValue } from '../../context/AuthContext'
 import { useListValue } from '../../context/ListContext'
@@ -23,6 +23,7 @@ function Pokedex() {
   const [Gen, setGen] = useState('Generations');
   const [Region, setRegion] = useState('Region');
   const [aba, setAba] = useState('seus');
+  const [info, setInfo] = useState(null)
   const [OurPokemons, setOurPokemons] = useState([])
 
   const { loading, erro } = useFetchPokemons();
@@ -38,7 +39,6 @@ function Pokedex() {
     }
   }, [posts])
 
-
   function VerifyPokemon(id) {
     var igual = false
     OurPokemons.map((OurPokemon) => {
@@ -47,6 +47,10 @@ function Pokedex() {
       }
     })
     return igual
+  }
+
+  if (info) {
+    return <Info num={info}/>
   }
 
 
@@ -143,6 +147,7 @@ function Pokedex() {
                             img={pokemon.sprites.other["official-artwork"].front_default}
                             types={pokemon.types}
                             num={pokemon.id}
+                            setInfo={setInfo}
                           />
                         }
                       </>
@@ -158,12 +163,12 @@ function Pokedex() {
                           />
                         ) : (
                           <Card
-                          name={pokemon.name}
-                          img={pokemon.sprites.other["official-artwork"].front_default}
-                          types={pokemon.types}
-                          num={pokemon.id}
-                          Style={'Ocult'}
-                        />
+                            name={pokemon.name}
+                            img={pokemon.sprites.other["official-artwork"].front_default}
+                            types={pokemon.types}
+                            num={pokemon.id}
+                            Style={'Uncatch'}
+                          />
                         )
 
                         }

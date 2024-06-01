@@ -84,8 +84,8 @@
 }
 .enconter img{
     margin-top: 10px;
-    width: 320px;
-    height: 320px;
+    width: 280px;
+    height: 280px;
     animation: jump 4s infinite, rotate 15s infinite;
 }
 @keyframes jump {

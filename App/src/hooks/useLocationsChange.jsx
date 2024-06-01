@@ -94,7 +94,7 @@ export const useLocationsChange = () => {
     }
     useEffect(() => {
         sla();
-    }, [cancelled])
+    })
 
     useEffect(() => {
         return () => setCancelled(true);

@@ -9,7 +9,6 @@ import { Link } from "react-router-dom";
 import { useFetchPokemons } from '../../hooks/useFetchPokemons';
 import { useFetchDocuments } from '../../hooks/useFetchDocuments';
 import { Time } from '../../hooks/useTime'
-import axios from 'axios';
 //context
 import { useAuthValue } from '../../context/AuthContext';
 
