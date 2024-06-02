@@ -9,7 +9,7 @@ import { useRandonPokemon } from "./useRandonPokemon";
 
 export const useLocationsChange = () => {
 
-    const [location, setLocation] = useState({})
+    const [location, setLocation] = useState(null)
     const [error, setError] = useState(null)
     const [loading, setLoading] = useState(null)
     const [cancelled, setCancelled] = useState(false);
@@ -92,13 +92,19 @@ export const useLocationsChange = () => {
 
         setLoading(false)
     }
-    useEffect(() => {
-        sla();
-    })
 
     useEffect(() => {
-        return () => setCancelled(true);
-    }, []);
+        if (!location) {
+            sla();
+        }
+
+    }, [])
+
+
+    useEffect
+        (() => {
+            return () => setCancelled(true);
+        }, []);
 
     return {
         location,

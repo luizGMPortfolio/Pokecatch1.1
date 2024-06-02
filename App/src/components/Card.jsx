@@ -1,10 +1,9 @@
 import './Card.css'
 import backcard from '../assets/Backgrounds/backcard.png'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 function Card({ name, img, types, num, Style, setInfo}) {
 
-  const navigate = useNavigate()
 
   function Rederect(){
     setInfo(num)
