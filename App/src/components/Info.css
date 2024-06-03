@@ -72,11 +72,31 @@
     min-width: 70%;
     display: flex;
     justify-content: space-between;
+    background-color: #666060;
+    border-radius: 30px;
+    padding: 0 25px;
+    color: #fff;
+    margin-bottom: 7px;
+    box-shadow: 1px 1px 5px 0px #1e1f1f;
+    
 
 }
 .stats span p{
     font-size: 20px;
 }
 .stats hr{
+    width: 90%;
+}
+
+.move{
+    display: flex;
+    flex-direction: column;
+}
+
+.evolves{
+    display: flex;
     width: 100%;
+}
+.evolves img{
+    width: 120px;
 }

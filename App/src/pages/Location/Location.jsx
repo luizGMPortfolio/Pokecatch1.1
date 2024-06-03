@@ -31,7 +31,7 @@ const Location = () => {
       const info = []
 
       for (let index = 0; index < 9; index++) {
-        const p = await FetchPokemon(Locations[index])
+        const p = await FetchPokemon('pokemon', Locations[index])
 
         if (num === index) {
           setPokemon(p)

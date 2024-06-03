@@ -96,14 +96,20 @@ export const useFetchPokemons = (type = null, Gen = null, Region = null) => {
 
   }
 
-  const FetchPokemon = async (num) => {
+  const FetchPokemon = async (rote, num, Allrote = null) => {
 
     setLoading(true);
 
     try {
+      if (Allrote) {
+        const response = await axios.get(Allrote);
+        return response.data
+      }
+      else {
+        const response = await axios.get("https://pokeapi.co/api/v2/" + rote + "/" + num + "/");
+        return response.data
+      }
 
-      const response = await axios.get("https://pokeapi.co/api/v2/pokemon/" + num + "/");
-      return response.data
 
     } catch (error) {
       console.log(error);
