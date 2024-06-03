@@ -98,5 +98,17 @@
     width: 100%;
 }
 .evolves img{
-    width: 120px;
+    width: 170px;
+}
+.varieties{
+    display: flex;
+}
+.varieties img  {
+    width: 170px;
+}
+.shiny{
+    display: flex;
+}
+.shiny img{
+    width: 170px;
 }

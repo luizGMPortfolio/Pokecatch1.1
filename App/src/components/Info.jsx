@@ -11,6 +11,7 @@ const Info = ({ num }) => {
     const [pokemon, setPokemon] = useState(null)
     const [species, setSpecies] = useState(null)
     const [evolves, setEvolves] = useState(null)
+    const [varieties, setVarieties] = useState(null)
     const [Stage, setStage] = useState('status')
     const { FetchPokemon } = useFetchPokemons()
 
@@ -40,6 +41,7 @@ const Info = ({ num }) => {
         }
         if (species) {
             Getdata()
+            GetVarieties()
         }
     }, [species])
 
@@ -84,21 +86,29 @@ const Info = ({ num }) => {
             return <span>Normal</span>
         }
     }
-    async function GetChainEvolves(){
+    async function GetChainEvolves() {
         const ChainEvolves = []
 
         ChainEvolves.push(await FetchPokemon('pokemon', evolves.chain.species.name))
 
-        if(evolves.chain.evolves_to[0]){
+        if (evolves.chain.evolves_to[0]) {
             ChainEvolves.push(await FetchPokemon('pokemon', evolves.chain.evolves_to[0].species.name))
         }
-        if(evolves.chain.evolves_to[0].evolves_to[0]){
-            ChainEvolves.push( await FetchPokemon('pokemon', evolves.chain.evolves_to[0].evolves_to[0].species.name))
+        if (evolves.chain.evolves_to[0].evolves_to[0]) {
+            ChainEvolves.push(await FetchPokemon('pokemon', evolves.chain.evolves_to[0].evolves_to[0].species.name))
         }
 
         setEvolveChain(ChainEvolves)
     }
-
+    async function GetVarieties() {
+        const varietiesData = []
+        species.varieties.map(async (varietie) => {
+            if (!varietie.is_default) {
+                varietiesData.push(await FetchPokemon(null, null, varietie.pokemon.url))
+            }
+        })
+        setVarieties(varietiesData)
+    }
     return (
         <div className='info'>
             {pokemon &&
@@ -157,12 +167,20 @@ const Info = ({ num }) => {
                                 </div>
                             }
                             {Stage === 'moves' &&
-                                <div className='move'>
-                                    {pokemon.moves.map((move) => (
-                                        <span>{move.move.name}</span>
+                                <>
+                                    <div>
+                                        <h2>Habilidades</h2>
+                                        {pokemon.abilities.map((ability) => (
+                                            <p>{ability.ability.name}</p>
+                                        ))}
+                                    </div>
+                                    <div className='move'>
+                                        {pokemon.moves.map((move) => (
+                                            <span>{move.move.name}</span>
 
-                                    ))}
-                                </div>
+                                        ))}
+                                    </div>
+                                </>
                             }
                             {Stage === 'sobre' &&
                                 <>
@@ -171,22 +189,44 @@ const Info = ({ num }) => {
                                         {GetClass()}
                                     </div>
                                     <div className='evolves'>
-                                        {EvolveChain.map((chain) => (
-                                            <img src={chain.sprites.other["official-artwork"].front_default} alt="" />   
-                                        ))}
+                                        {EvolveChain &&
+                                            <div>
+                                                <h2>Evolves</h2>
+                                                {
+                                                    EvolveChain.map((chain) => (
+                                                        <img src={chain.sprites.other["official-artwork"].front_default} alt="" />
+                                                    ))
+                                                }
+                                            </div>
+
+                                        }
+
+                                    </div>
+                                    <div className='varieties'>
+                                        {varieties.lehgth > 0 &&
+                                            <div>
+                                                <h2>Varieties</h2>
+                                                {varieties.map((varietie) => (
+                                                    <img src={varietie.sprites.other["official-artwork"].front_default} alt="" />
+                                                ))}
+                                            </div>
+                                        }
+
+
+                                    </div>
+                                    <div className='shiny'>
+                                        <h2>Shiny</h2>
+                                        <img src={pokemon.sprites.other["official-artwork"].front_shiny} alt="" srcset="" />
                                     </div>
                                     <div>
-
+                                        <span>base_happiness:{species && species.base_happiness}</span>
+                                        <span>capture_rate:{species && species.capture_rate}</span>
                                     </div>
                                     <div>
                                         <span>Height:{pokemon.height}</span>
                                         <span>Weight:{pokemon.weight}</span>
                                     </div>
-                                    <div>
-                                        <h2>Habilidades</h2>
-                                        {pokemon.abilities.map((ability) => (
-                                            <p>{ability.ability.name}</p>
-                                        ))}</div>
+
                                 </>
 
                             }
