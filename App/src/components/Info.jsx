@@ -12,6 +12,7 @@ const Info = ({ num }) => {
     const [species, setSpecies] = useState(null)
     const [evolves, setEvolves] = useState(null)
     const [varieties, setVarieties] = useState(null)
+    const [damages, setDamages] = useState(null)
     const [Stage, setStage] = useState('status')
     const { FetchPokemon } = useFetchPokemons()
 
@@ -48,6 +49,7 @@ const Info = ({ num }) => {
     useEffect(() => {
         if (evolves) {
             GetChainEvolves()
+            Getdamages()
         }
     }, [evolves])
 
@@ -109,6 +111,14 @@ const Info = ({ num }) => {
         })
         setVarieties(varietiesData)
     }
+    async function Getdamages() {
+        const dataType = []
+        pokemon.types.map(async (type) => {
+            dataType.push(await FetchPokemon(null, null, type.type.url))
+        })
+        setDamages(dataType)
+    }
+    console.log(damages)
     return (
         <div className='info'>
             {pokemon &&
@@ -185,7 +195,7 @@ const Info = ({ num }) => {
                             {Stage === 'sobre' &&
                                 <>
                                     <div className='class'>
-                                        {GetEvolveStage()}
+                                        {evolves && GetEvolveStage()}
                                         {GetClass()}
                                     </div>
                                     <div className='evolves'>
@@ -193,13 +203,9 @@ const Info = ({ num }) => {
                                             <div>
                                                 <h2>Evolves</h2>
                                                 {
-                                                    EvolveChain.map((chain) => {
-                                                        {
-                                                            chain &&
-                                                            <img src={chain.sprites.other["official-artwork"].front_default} alt="" />
-
-                                                        }
-                                                    })
+                                                    EvolveChain.map((chain) => (
+                                                        <img src={chain.sprites.other["official-artwork"].front_default} alt="" />
+                                                    ))
                                                 }
                                             </div>
 
@@ -207,7 +213,7 @@ const Info = ({ num }) => {
 
                                     </div>
                                     <div className='varieties'>
-                                        {varieties.lehgth > 0 &&
+                                        {varieties &&
                                             <div>
                                                 <h2>Varieties</h2>
                                                 {varieties.map((varietie) => (
@@ -222,6 +228,21 @@ const Info = ({ num }) => {
                                         <h2>Shiny</h2>
                                         <img src={pokemon.sprites.other["official-artwork"].front_shiny} alt="" srcset="" />
                                     </div>
+                                    {damages &&
+                                        <div>
+                                            <span>2x</span>
+                                            {damages.map((type) => (
+                                                <>
+                                                    <h2>{type.name}</h2>
+                                                    {type.damage_relations.double_damage_to.map((damage) => (
+                                                        <span>{damage.name}</span>
+                                                    ))}
+                                                </>
+
+                                            ))}
+                                        </div>
+                                    }
+
                                     <div>
                                         <span>base_happiness:{species && species.base_happiness}</span>
                                         <span>capture_rate:{species && species.capture_rate}</span>
