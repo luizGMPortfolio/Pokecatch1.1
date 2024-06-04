@@ -1,4 +1,4 @@
-.location{
+.location {
     width: 100%;
     min-height: 100vh;
     background-size: cover;
@@ -6,25 +6,29 @@
     background-position: center;
     display: flex;
     flex-direction: column;
+    justify-content: space-around;
 
 }
-.location header{
+
+.location header {
     width: 100%;
     display: flex;
-    justify-content:space-between;
+    justify-content: space-between;
 }
-.location .ContagemLocation{
+
+.location .ContagemLocation {
     color: #ffffffd2;
 }
-.possibilities{
+
+.possibilities {
     width: 100%;
     display: flex;
-    justify-content:center;
+    justify-content: center;
     align-items: center;
-    flex-wrap: wrap;
     padding: 20px 0;
 }
-.possibilities .list{
+
+.possibilities .list {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -32,151 +36,276 @@
     border-radius: 70px;
     padding: 10px;
     margin: 0 5px;
+    flex-wrap: wrap;
 }
-.ContagemLocation{
+
+.ContagemLocation {
     width: 35%;
     display: flex;
     flex-direction: column;
     font-family: "Inter", sans-serif;
     font-weight: bold;
-    margin: 10px 0;text-align: center;
+    margin: 10px 0;
+    text-align: center;
 }
-.ContagemLocation .text{
+
+.ContagemLocation .text {
     font-size: 20px;
 }
-.ContagemLocation .time{
+
+.ContagemLocation .time {
     font-size: 40px;
 }
 
-.possibilities img{
+.possibilities img {
     width: 50px;
     height: 50px;
-    filter:brightness(0);
+    filter: brightness(0);
     transition: 100ms;
 }
-.possibilities img:hover{
+
+.possibilities img:hover {
     transform: translatey(-10px);
 }
 
-.back{
+.back {
     width: 30%;
     display: flex;
     justify-content: center;
     align-items: center;
 }
-.back a{
- color: #000000;
+
+.back a {
+    color: #000000;
 }
-.back span{
+
+.back span {
     scale: 1.5;
     background-color: #ffffff94;
     border-radius: 50%;
 }
-.back span:hover{
+
+.back span:hover {
     color: #fff;
 }
-.enconter{
+
+.enconter {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 80%;
-    margin-top: 10%;
+    height: 400px;
 }
-.enconter img{
-    margin-top: 10px;
+
+.enconter img {
     width: 280px;
     height: 280px;
     animation: jump 4s infinite, rotate 15s infinite;
 }
+
 @keyframes jump {
-    0%{
+    0% {
         transform: translatey(0);
         animation-timing-function: cubic-bezier(0.28, 0.84, 0.42, 1);
     }
-    5%{
+
+    5% {
         transform: translatey(-10px);
     }
-    10%{
+
+    10% {
         transform: translatey(0);
         animation-timing-function: cubic-bezier(0.28, 0.84, 0.42, 1);
     }
-    15%{
+
+    15% {
         transform: translatey(-10px);
     }
+
     20% {
         transform: translatey(0);
         animation-timing-function: cubic-bezier(0.28, 0.84, 0.42, 1);
     }
 }
+
 @keyframes rotate {
-    0%{
+    0% {
         transform: rotate(0);
         animation-timing-function: cubic-bezier(0.28, 0.84, 0.42, 1);
     }
-    1%{
+
+    1% {
         transform: rotate(-10deg);
     }
-    2%{
+
+    2% {
         transform: rotate(0);
         animation-timing-function: cubic-bezier(0.28, 0.84, 0.42, 1);
     }
-    3%{
+
+    3% {
         transform: rotate(-10deg);
     }
+
     4% {
         transform: rotate(0);
         animation-timing-function: cubic-bezier(0.28, 0.84, 0.42, 1);
     }
 }
-.forest{
+
+.forest {
     background: url('../../assets/Backgrounds/Floresta.jpg');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
 }
-.cave{
+
+.cave {
     background: url('../../assets/Backgrounds/caverna6.jpg');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
 }
-.mountain{
+
+.mountain {
     background: url('../../assets/Backgrounds/montanha4.jpg');
     background-size: cover;
     background-repeat: no-repeat;
-    background-position: center; 
+    background-position: center;
 }
-.beach{
+
+.beach {
     background: url('../../assets/Backgrounds/praia2.jpg');
     background-size: cover;
     background-repeat: no-repeat;
-    background-position: center; 
+    background-position: center;
 }
-.desert{
+
+.desert {
     background: url('../../assets/Backgrounds/deserto3.jpg');
     background-size: cover;
     background-repeat: no-repeat;
-    background-position: center; 
+    background-position: center;
 }
-.vulcano{
+
+.vulcano {
     background: url('../../assets/Backgrounds/vulção.jpg');
     background-size: cover;
     background-repeat: no-repeat;
-    background-position: center; 
+    background-position: center;
 }
-.HantedHouse{
+
+.HantedHouse {
     background: url('../../assets/Backgrounds/ghost.jpg');
     background-size: cover;
     background-repeat: no-repeat;
-    background-position: center; 
+    background-position: center;
 }
 
 
-@media (max-width: 768px) {
-    .possibilities .list{
-        scale: 0.6;
+
+.menu {
+    display: flex;
+    height: 70px;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    transition: 200ms;
+    padding: 0;
+    margin: 0;
+
+}
+
+
+.pokeballs {
+    position: absolute;
+    top: 10px;
+    display: flex;
+    background-color: #08358ecb;
+    height: 50px;
+    width: 30%;
+    list-style: none;
+    padding: 5px;
+    border-radius: 50px;
+    justify-content: space-around;
+    animation: opacity 1s;
+}
+
+@keyframes opacity {
+    0% {
+        opacity: 0;
     }
-    .enconter{
-        margin-top: 15%;
+
+    100% {
+        opacity: 1;
     }
+}
+
+.pokeballs img {
+    width: 40px;
+    height: 100%;
+    transition: 1s;
+}
+
+.pokeball {
+    transition: 300ms;
+    padding: 6px;
+    background-color: #3a3a3a94;
+    display: flex;
+    justify-content: space-around;
+    height: 50px;
+    border-radius: 30px;
+    
+
+}
+
+.pokeball img {
+    transition: 300ms;
+    width: 50px;
+    height: 50px;
+}
+.pokeball span{
+    z-index: 101;
+    text-align: center;
+}
+
+.cliked {
+    transition: 300ms;
+    width: 50%;
+    max-width: 400px;
+    min-width: 300px;
+}
+
+.clikedImg {
+    transform: rotate(-360deg);
+}
+
+
+.pokebola{
+    background: url('../../assets/pokebolas/padão.svg');
+    background-position: center;
+    background-size: cover;
+}
+.pokeball div{
+    width: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: end;
+    color: #868686;
+    font-size: 15px;
+    font-weight: bold;
+}
+.great{
+    background: url('../../assets/pokebolas/greatBall.svg');
+    background-position: center;
+    background-size: cover;
+}
+.ultra{
+    background: url('../../assets/pokebolas/ultraBall.svg');
+    background-position: center;
+    background-size: cover;
+}
+.master{
+    background: url('../../assets/pokebolas/masterBall.svg');
+    background-position: center;
+    background-size: cover;
 }

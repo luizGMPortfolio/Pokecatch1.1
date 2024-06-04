@@ -193,9 +193,13 @@ const Info = ({ num }) => {
                                             <div>
                                                 <h2>Evolves</h2>
                                                 {
-                                                    EvolveChain.map((chain) => (
-                                                        <img src={chain.sprites.other["official-artwork"].front_default} alt="" />
-                                                    ))
+                                                    EvolveChain.map((chain) => {
+                                                        {
+                                                            chain &&
+                                                            <img src={chain.sprites.other["official-artwork"].front_default} alt="" />
+
+                                                        }
+                                                    })
                                                 }
                                             </div>
 

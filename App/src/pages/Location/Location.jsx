@@ -11,6 +11,8 @@ import { useFetchDocuments } from '../../hooks/useFetchDocuments';
 import { Time } from '../../hooks/useTime'
 //context
 import { useAuthValue } from '../../context/AuthContext';
+//imports
+import blackPoke from '../../assets/Icones/BlackPokeball.png'
 
 const Location = () => {
 
@@ -18,11 +20,16 @@ const Location = () => {
   const { user } = useAuthValue();
   const [error, setError] = useState(null)
 
-  const { documents: posts, loading } = useFetchDocuments("Configs", user.uid);
+  const { documents: Configs, loading } = useFetchDocuments("Configs", user.uid);
+  const { documents: Itens } = useFetchDocuments("itens", user.uid);
   const { FetchPokemon } = useFetchPokemons()
+
   const [Locations, setLocations] = useState()
   const [pokemons, setPokemons] = useState([])
   const [pokemon, setPokemon] = useState(null)
+  const [pokebolas, setPokebolas] = useState(null)
+
+  const [active, setActive] = useState(false)
   const { horarioAtual } = Time();
 
   const GetPokemon = async () => {
@@ -48,33 +55,39 @@ const Location = () => {
   }
 
   useEffect(() => {
-    if (posts) {
+    if (Configs) {
       switch (id) {
         case 'forest':
-          setLocations(posts[0].locations.forest)
+          setLocations(Configs[0].locations.forest)
           break
         case 'cave':
-          setLocations(posts[0].locations.cave)
+          setLocations(Configs[0].locations.cave)
           break
         case 'mountain':
-          setLocations(posts[0].locations.mountain)
+          setLocations(Configs[0].locations.mountain)
           break
         case 'beach':
-          setLocations(posts[0].locations.beach)
+          setLocations(Configs[0].locations.beach)
           break
         case 'desert':
-          setLocations(posts[0].locations.desert)
+          setLocations(Configs[0].locations.desert)
           break
         case 'vulcano':
-          setLocations(posts[0].locations.vulcano)
+          setLocations(Configs[0].locations.vulcano)
           break
         case 'HantedHouse':
-          setLocations(posts[0].locations.HantedHouse)
+          setLocations(Configs[0].locations.HantedHouse)
           break
       }
 
     }
-  }, [posts])
+  }, [Configs])
+
+  useEffect(() => {
+    if (Itens) {
+      setPokebolas(Itens[0].pokebolas)
+    }
+  }, [Itens])
 
 
   useEffect(() => {
@@ -101,16 +114,43 @@ const Location = () => {
 
         <div className="list">
           {pokemons && pokemons.map((item) => (
-                <img src={item.sprites.other["official-artwork"].front_default} alt="" />
+            <img src={item.sprites.other["official-artwork"].front_default} alt="" />
           ))}
         </div>
-        
+
       </div>
       <div className='enconter'>
         {pokemon &&
           <img src={pokemon.sprites.other["official-artwork"].front_default} alt="" />
         }
       </div>
+      <menu className='menu'>
+
+        <div className={`pokeball ${active ? 'cliked' : ''}`}>
+          {active &&
+            <>
+              <div className='ultra'>
+                <span>{pokebolas.ultra}</span>
+              </div>
+              <div className='great'>
+                <span>{pokebolas.great}</span>
+              </div>
+            </>
+          }
+          <img onClick={() => setActive(active ? false : true)} className={` ${active ? 'clikedImg' : ''}`} src={blackPoke} alt="" />
+          {active &&
+            <>
+              <div className='pokebola'>
+                <span>{pokebolas.pokebola}</span>
+              </div>
+              <div className='master'>
+                <span>{pokebolas.master}</span>
+              </div>
+
+            </>
+          }
+        </div>
+      </menu>
 
     </div>
   )
