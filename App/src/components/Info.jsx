@@ -109,6 +109,9 @@ const Info = ({ num }) => {
         })
         setVarieties(varietiesData)
     }
+    function Getbenefits(){
+        
+    }
     return (
         <div className='info'>
             {pokemon &&
