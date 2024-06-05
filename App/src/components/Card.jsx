@@ -2,36 +2,41 @@ import './Card.css'
 import backcard from '../assets/Backgrounds/backcard.png'
 import { Link } from 'react-router-dom'
 
-function Card({ name, img, types, num, Style, setInfo}) {
+function Card({ name, img, types, num, Style, setInfo, quantidade }) {
 
 
-  function Rederect(){
+  function Rederect() {
     setInfo(num)
   }
   return (
 
     <>
 
-        {!Style &&
-          <div className='card' onClick={Rederect}>
-            <div className='name'>
-              <h3 style={{ fontSize: `${name > 12 ? '11px' : '15px'}` }}>{name}</h3>
-            </div>
-            <div className='img'>
-              <img src={img} alt="" />
-            </div>
-            <div className='types'>
-              {types && types.map(type => (
-                <div className={`type1 ${type.type.name}`}>
-                  <span>{type.type.name}</span>
-                </div>
-              ))}
-            </div>
-            <div className='num'>
-              <span>N°{num}</span>
-            </div>
+      {!Style &&
+        <div className='card' onClick={Rederect}>
+          <div className='name'>
+            <h3 style={{ fontSize: `${name > 12 ? '11px' : '15px'}` }}>{name}</h3>
           </div>
-        }
+          <div className='img'>
+            <img src={img} alt="" />
+          </div>
+          <div className='types'>
+            {types && types.map(type => (
+              <div className={`type1 ${type.type.name}`}>
+                <span>{type.type.name}</span>
+              </div>
+            ))}
+          </div>
+          <div className='num'>
+            <span>N°{num}</span>
+          </div>
+          {quantidade &&
+            <div className='duplicate'>
+              <span>{quantidade}x</span>
+            </div>
+          }
+        </div>
+      }
 
       {Style == 'Uncatch' &&
         <div className='card ocult'>

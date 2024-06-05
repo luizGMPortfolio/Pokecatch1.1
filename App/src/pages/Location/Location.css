@@ -267,6 +267,9 @@
     z-index: 101;
     text-align: center;
 }
+.pokeball div{
+    cursor: pointer;
+}
 
 .cliked {
     transition: 300ms;
@@ -278,7 +281,9 @@
 .clikedImg {
     transform: rotate(-360deg);
 }
-
+.hide{
+    display: none !important;
+}
 
 .pokebola{
     background: url('../../assets/pokebolas/padão.svg');

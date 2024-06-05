@@ -105,7 +105,7 @@ function App() {
                 <Route path='/pokedex' element={user ? <Pokedex /> : <Navigate to='/login' />} />
                 <Route path='/How' element={user ? <How setRewards={setRewards} /> : <Navigate to='/login' />} />
                 <Route path='/profile' element={user ? <Profile /> : <Navigate to='/login' />} />
-                <Route path='/location/:id' element={user ? <Location /> : <Navigate to='/login' />} />
+                <Route path='/location/:id' element={user ? <Location setRewards={setRewards}/> : <Navigate to='/login' />} />
               </Routes>
             </ListProvider>
           </div>

@@ -25,17 +25,20 @@ function Pokedex() {
   const [aba, setAba] = useState('seus');
   const [info, setInfo] = useState(null)
   const [OurPokemons, setOurPokemons] = useState([])
-
+  const [Duplicate, setDuplicate] = useState([])
+  const [quant, setQuant] = useState(0)
   const { loading, erro } = useFetchPokemons();
   const { List } = useListValue();
   const { user } = useAuthValue();
 
   const { documents: posts } = useFetchDocuments("itens", user.uid);
 
+
+
   useEffect(() => {
     if (posts) {
-      console.log(posts[0])
-      setOurPokemons(posts[0].pokemons)
+      setDuplicate(getDuplicateCounts(posts[0].pokemons))
+      setOurPokemons(posts[0].pokemons.filter((item, index) => posts[0].pokemons.indexOf(item) === index))
     }
   }, [posts])
 
@@ -48,9 +51,30 @@ function Pokedex() {
     })
     return igual
   }
+  function DuplicatePokemon(id) {
+    var igual = false
+    var q = 0
+    Duplicate.map((item) => {
+      if (item[0] == id) {
+        igual = true
+        q = item[1]
+      }
+
+    })
+
+    return q
+  }
+  const getDuplicateCounts = (arr) => {
+    const counts = arr.reduce((acc, item) => {
+      acc[item] = (acc[item] || 0) + 1;
+      return acc;
+    }, {});
+
+    return Object.entries(counts).filter(([item, count]) => count > 1);
+  };
 
   if (info) {
-    return <Info num={info}/>
+    return <Info num={info} setInfo={setInfo} />
   }
 
 
@@ -142,13 +166,28 @@ function Pokedex() {
                     {aba === 'seus' && OurPokemons.map((OurPokemon) => (
                       <>
                         {OurPokemon === pokemon.id &&
-                          <Card
-                            name={pokemon.name}
-                            img={pokemon.sprites.other["official-artwork"].front_default}
-                            types={pokemon.types}
-                            num={pokemon.id}
-                            setInfo={setInfo}
-                          />
+                          <>
+                            {DuplicatePokemon(OurPokemon) ? (
+                              <Card
+                                name={pokemon.name}
+                                img={pokemon.sprites.other["official-artwork"].front_default}
+                                types={pokemon.types}
+                                num={pokemon.id}
+                                setInfo={setInfo}
+                                quantidade={DuplicatePokemon(OurPokemon)}
+                              />
+                            ) : (
+                              <Card
+                                name={pokemon.name}
+                                img={pokemon.sprites.other["official-artwork"].front_default}
+                                types={pokemon.types}
+                                num={pokemon.id}
+                                setInfo={setInfo}
+                              />
+                            )
+
+                            }
+                          </>
                         }
                       </>
                     ))}
@@ -160,6 +199,7 @@ function Pokedex() {
                             img={pokemon.sprites.other["official-artwork"].front_default}
                             types={pokemon.types}
                             num={pokemon.id}
+                            setInfo={setInfo}
                           />
                         ) : (
                           <Card
