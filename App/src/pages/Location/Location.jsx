@@ -16,24 +16,29 @@ import { useAuthValue } from '../../context/AuthContext';
 //imports
 import blackPoke from '../../assets/Icones/BlackPokeball.png'
 
-const Location = ({setRewards}) => {
+const Location = ({ setRewards }) => {
 
   const { id } = useParams();
   const { user } = useAuthValue();
   const [error, setError] = useState(null)
 
-  const { documents: Configs, loading } = useFetchDocuments("Configs", user.uid);
+  const { documents: Configs } = useFetchDocuments("Configs", user.uid);
+  const { documents: status } = useFetchDocuments("status", user.uid);
   const { documents: Itens } = useFetchDocuments("itens", user.uid);
   const { updateDocument: updateItens, response: itensResponse } = useUpdateDocument("itens");
+  const { updateDocument: updateStatus, response: statusResponse } = useUpdateDocument("status");
   const { RandonPokeball, pokebolas: Rpokebolas, loading: Rloading, error: Rerror } = useRandonPokeball();
   const { FetchPokemon } = useFetchPokemons()
 
   const [Locations, setLocations] = useState()
+
   const [pokemons, setPokemons] = useState([])
   const [pokemon, setPokemon] = useState(null)
-  const [capture_rate, setcapture_rate] = useState(null)
-  const [pokebolas, setPokebolas] = useState(null)
 
+  const [capture_rate, setcapture_rate] = useState(null)
+
+  const [pokebolas, setPokebolas] = useState(null)
+  const [enconters, setEnconters] = useState(null)
   const [active, setActive] = useState(false)
   const { horarioAtual } = Time();
 
@@ -98,6 +103,19 @@ const Location = ({setRewards}) => {
       setPokebolas(Itens[0].pokebolas)
     }
   }, [Itens])
+
+  useEffect(() => {
+    if (status) {
+      setEnconters(status[0].enconters)
+      if(!enconters){
+        const data = {
+          enconters: status[0].enconters + 1
+        }
+  
+        updateStatus(status[0].id, data);
+      }
+    }
+  }, [status])
 
   useEffect(() => {
     if (Locations) {

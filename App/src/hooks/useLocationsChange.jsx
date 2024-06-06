@@ -2,19 +2,20 @@
 import { useState, useEffect } from "react";
 
 import { Database } from "../firebase/config";
-import { ref, get, child } from "firebase/database";
+import { ref, get, child, getDatabase } from "firebase/database";
 
 import { useRandonPokemon } from "./useRandonPokemon";
-
 
 export const useLocationsChange = () => {
 
     const [location, setLocation] = useState(null)
     const [error, setError] = useState(null)
     const [loading, setLoading] = useState(null)
+    const [BackCards, setBackCards] = useState(null)
     const [cancelled, setCancelled] = useState(false);
 
     const { RandowPokemonsLocations } = useRandonPokemon()
+
 
 
     const LoadDatabase = async (path) => {
@@ -92,13 +93,35 @@ export const useLocationsChange = () => {
 
         setLoading(false)
     }
+    async function getBackCards(){
+        if (cancelled) {
+            return;
+        }
+
+        setLoading(true);
+
+
+        try {
+            const data = await LoadDatabase('BackCards')
+            setBackCards(data)
+
+        } catch (error) {
+            console.log(error);
+            setError(error.message);
+        }
+
+        setLoading(false)
+    }
 
     useEffect(() => {
         if (!location) {
             sla();
         }
-
+        if(!BackCards){
+           getBackCards();
+        }
     }, [])
+    
 
 
     useEffect
@@ -108,6 +131,7 @@ export const useLocationsChange = () => {
 
     return {
         location,
+        BackCards,
         loading,
         error
     }

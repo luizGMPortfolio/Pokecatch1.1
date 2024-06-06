@@ -1,7 +1,6 @@
 //css
 import './How.css'
-//imports
-import backcard from '../../assets/Backgrounds/backcard.png'
+
 
 //hooks
 import { useState, useEffect } from 'react'
@@ -19,6 +18,8 @@ const How = ({ setRewards }) => {
 
   const [num, setNum] = useState()
   const [pokemon, setPokemon] = useState()
+  const [Choise, setChoise] = useState('')
+  const [ChoiseError, setChoiseError] = useState(0)
 
   useEffect(() => {
     RandonHowPokemons()
@@ -42,6 +43,21 @@ const How = ({ setRewards }) => {
       console.log(NewRewards)
       setRewards(NewRewards)
     }
+    else {
+      var id = document.getElementsByClassName(choise)[0];
+      id.classList.add('errado')
+      if(ChoiseError > 0) {
+        setPokemon(null)
+      }else{
+        setChoiseError(ChoiseError + 1)
+        console.log(ChoiseError)
+      }
+
+      console.log(id)
+      
+
+
+    }
   }
 
 
@@ -53,7 +69,7 @@ const How = ({ setRewards }) => {
           <h3>Quem é esse</h3>
           <h1>Pokemon?</h1>
         </div>
-        {!pokemons &&
+        {!pokemon &&
           <div className='cardHow'>
             <Card Style={'Back'} />
           </div>
@@ -72,10 +88,10 @@ const How = ({ setRewards }) => {
             </div>
             <div className='choises'>
               <ul>
-                <li onClick={() => CheckChoise(pokemons[0].data.name)}>{pokemons[0].data.name}</li>
-                <li onClick={() => CheckChoise(pokemons[1].data.name)}>{pokemons[1].data.name}</li>
-                <li onClick={() => CheckChoise(pokemons[2].data.name)}>{pokemons[2].data.name}</li>
-                <li onClick={() => CheckChoise(pokemons[3].data.name)}>{pokemons[3].data.name}</li>
+                <li className={pokemons[0].data.name} onClick={() => CheckChoise(pokemons[0].data.name)}>{pokemons[0].data.name}</li>
+                <li className={pokemons[1].data.name} onClick={() => CheckChoise(pokemons[1].data.name)}>{pokemons[1].data.name}</li>
+                <li className={pokemons[2].data.name} onClick={() => CheckChoise(pokemons[2].data.name)}>{pokemons[2].data.name}</li>
+                <li className={pokemons[3].data.name} onClick={() => CheckChoise(pokemons[3].data.name)}>{pokemons[3].data.name}</li>
               </ul>
             </div>
           </>

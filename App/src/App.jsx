@@ -28,7 +28,7 @@ import How from './pages/How/How.jsx';
 import Rewards from './pages/Rewards/Rewards.jsx';
 import Location from './pages/Location/Location.jsx';
 import Profile from './pages/profile/Profile.jsx';
-import Info from './components/Info.jsx';
+
 //components
 
 

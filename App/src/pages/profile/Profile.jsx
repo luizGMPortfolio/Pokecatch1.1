@@ -1,17 +1,22 @@
+
 //css
 import './Profile.css'
 
 //hooks
 import React, { useRef, useState, useEffect } from 'react';
-import { useAuthValue } from '../../context/AuthContext'
+import { useAuthValue } from '../../context/AuthContext';
+import { useAuthentication } from '../../hooks/useAuthentication'
 import { useFetchDocuments } from '../../hooks/useFetchDocuments';
 import { useRandonPokeball } from '../../hooks/useRandowPokeballs';
+import { useLocationsChange } from '../../hooks/useLocationsChange'
 //imports
 import Imguser from '../../assets/Icones/user.png';
+
 
 //components
 import Card from '../../components/Card';
 import Navbar from '../../components/Navbar'
+import Modal from '../../components/Modal';
 
 const Profile = () => {
 
@@ -19,8 +24,15 @@ const Profile = () => {
   const [pokebolas, setPokebolas] = useState()
   const { user } = useAuthValue();
   const [perfil, setPerfil] = useState()
+  const [backcards, setBackcards] = useState()
+  const [ConfigId, setConfigId] = useState()
+  const [display, setDisplay] = useState('none')
+
+  const { logout } = useAuthentication();
   const { documents: itens, loading } = useFetchDocuments("itens", user.uid);
   const { documents: status } = useFetchDocuments('status', user.uid);
+  const { documents: Configs } = useFetchDocuments('Configs', user.uid);
+  const { BackCards } = useLocationsChange()
   const { PokeballsImage } = useRandonPokeball()
 
 
@@ -36,10 +48,18 @@ const Profile = () => {
       setPerfil(status[0])
     }
   }, [status])
+  useEffect(() => {
+    if (Configs && BackCards) {
+      setBackcards(BackCards[Configs[0].BackCard])
+      setConfigId(Configs[0].id)
+    }
+  }, [Configs, BackCards])
+
 
   return (
     <>
       <Navbar />
+      <Modal display={display} setDisplay={setDisplay} backcards={BackCards}/>
       <div className='Use'>
         <div className='perfil'>
           <div className='p-top'>
@@ -60,8 +80,7 @@ const Profile = () => {
               <span>{perfil && perfil.legendary}</span>
             </div>
           </div>
-        </div>
-        <div className='Equipe'>
+          {/*<div className='Equipe'>
           <h3>Sua equipe</h3>
           <div className='cards'>
             {!loading &&
@@ -80,6 +99,7 @@ const Profile = () => {
             <button>Alterar</button>
           </div>
 
+        </div>*/}
         </div>
         <div className='itens'>
           <h3>Itens</h3>
@@ -87,7 +107,7 @@ const Profile = () => {
             <li>
               <img src={PokeballsImage().pokebola} alt="" />
               <span>{pokebolas && pokebolas.pokebola}</span>
-              </li>
+            </li>
             <li>
               <img src={PokeballsImage().great} alt="" />
               <span>{pokebolas && pokebolas.great}</span>
@@ -105,13 +125,16 @@ const Profile = () => {
         <div className='changeBackcard'>
           <div className='CB-Back'>
             <h3>BackCard</h3>
-            <img src="https://lh5.googleusercontent.com/proxy/WthF44jrTiMwG3d5PGLmCsA_-EUHXiyfC0MYx5zPKqyqoNDBhSQm_iMaQNIbIAdBvvaj-002c71zlR8CDYnSY35MtU2XB9wct66pV9VNWSvjhIoXeVEBjYv3jMVOhropyAu87Bd5" alt="" />
+            {BackCards &&
+              <img src={backcards} alt="" />
+            }
+
           </div>
           <div className='EquipeB'>
-            <button>Alterar</button>
+            <button onClick={() => setDisplay('flex')}>Alterar</button>
           </div>
         </div>
-        <button className='exit'>Sair</button>
+        <button onClick={logout} className='exit'>Sair</button>
       </div>
     </>
 

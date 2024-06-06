@@ -6,6 +6,7 @@ import { useRandonPokemon } from '../../hooks/useRandonPokemon';
 import { useRandonPokeball } from '../../hooks/useRandowPokeballs';
 import { useUpdateDocument } from '../../hooks/useUpdateDocument';
 import { useFetchDocuments } from '../../hooks/useFetchDocuments';
+import { useFetchPokemons } from '../../hooks/useFetchPokemons';
 import { useRewards } from '../../hooks/useRewards';
 import { useState, useEffect } from 'react';
 
@@ -23,22 +24,26 @@ const Rewards = ({ rewards, setRewards, user }) => {
     const { documents: status } = useFetchDocuments("status", user.uid);
     const { updateDocument: updateItens, response: ItensResponse } = useUpdateDocument("itens");
     const { updateDocument: updateStatus, response: StatusResponse } = useUpdateDocument("status");
+    const { FetchPokemon } = useFetchPokemons()
 
 
     const [id, setId] = useState()
     const [pokemons, setPokemons] = useState([])
     const [pokebolas, setPokebolas] = useState({})
     const [time, setTime] = useState([])
-
+    const [species, setSpecies] = useState(null)
     const [cards, setCards] = useState(0)
-    const [enconters, setEnconters] = useState(0)
     const [legendary, setLegendary] = useState(0)
 
 
 
     useEffect(() => {
+
+        async function getSpecies() {
+            setSpecies(await FetchPokemon('pokemon-species', rewards.pokemon.id))
+        }
         if (itens) {
-            console.log(itens[0])
+            getSpecies()
             setPokemons([...itens[0].pokemons, rewards.pokemon.id])
             setPokebolas({
                 pokebola: itens[0].pokebolas.pokebola + rewards.pokebolas.pokebolas.pokebola,
@@ -56,9 +61,8 @@ const Rewards = ({ rewards, setRewards, user }) => {
     }, [itens])
 
     useEffect(() => {
-        if(status){
+        if (status) {
             setCards(status[0].cards)
-            setEnconters(status[0].enconters)
             setLegendary(status[0].legendary)
         }
     }, [status])
@@ -73,8 +77,14 @@ const Rewards = ({ rewards, setRewards, user }) => {
         }
         updateItens(itens[0].id, DataItens);
 
+        var count = 0
+        if(species.is_legendary){
+            count = count + 1 
+        }
+
         const DataStatus = {
             cards: cards + 1,
+            legendary: legendary + count
         }
         updateStatus(status[0].id, DataStatus);
 

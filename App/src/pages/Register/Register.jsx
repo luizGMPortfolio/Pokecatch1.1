@@ -95,6 +95,7 @@ const Register = ({ setRewards }) => {
       insertConfigs({
         locations: location,
         pokemons: [],
+        BackCard: 'padrão',
         Date: DiaAtual,
         uid: res.uid,
         createdBy: res.displayName,
@@ -113,6 +114,53 @@ const Register = ({ setRewards }) => {
     }
 
   };
+  /*const handleGooglelogin = async () => {
+
+    GoogleLogin()
+
+    try {
+      await location
+
+      insertItens({
+        pokemons: [],
+        pokebolas: {
+          pokebola: 5,
+          great: 0,
+          ultra: 0,
+          master: 0
+        },
+        time: [],
+        uid: res.uid,
+        createdBy: res.displayName,
+      });
+      insertStatus({
+        cards: 0,
+        enconters: 0,
+        legendary: 0,
+        uid: res.uid,
+        createdBy: res.displayName,
+      });
+      insertConfigs({
+        locations: location,
+        pokemons: [],
+        BackCard: 'padrão',
+        Date: DiaAtual,
+        uid: res.uid,
+        createdBy: res.displayName,
+      })
+
+      const NewRewards = {
+        pokemon: pokemon,
+        pokebolas: Rpokebolas
+      }
+
+      setRewards(NewRewards)
+
+    } catch (error) {
+      console.log(error);
+      setError(error.message);
+    }
+  } */
 
   return (
 
@@ -177,16 +225,16 @@ const Register = ({ setRewards }) => {
           <Link to='/'>Logar</Link>
         </div>
       </div>
-      <div className='outher'>
-                <div className='division'>
-                    <hr />
-                    <span>ou</span>
-                    <hr />
-                </div>
-                <div className='google'>
-                    <span onClick={GoogleLogin}><FcGoogle />Google</span>
-                </div>
-            </div>
+      {/*<div className='outher'>
+        <div className='division'>
+          <hr />
+          <span>ou</span>
+          <hr />
+        </div>
+        <div className='google'>
+          <span onClick={handleGooglelogin}><FcGoogle />Google</span>
+        </div>
+      </div> */}
 
     </div>
 

@@ -17,7 +17,7 @@ const Login = () => {
     const [password, setpassword] = useState('');
     const [error, setError] = useState('');
 
-    const { login, error: authError, loading } = useAuthentication();
+    const { login, GoogleLogin, error: authError, loading } = useAuthentication();
 
 
     const handleSubmit = async (e) => {
@@ -81,16 +81,16 @@ const Login = () => {
                 </div>
                 {error && <p className='error'>{error}</p>}
             </div>
-            <div className='outher'>
+            {/*<div className='outher'>
                 <div className='division'>
                     <hr />
                     <span>ou</span>
                     <hr />
                 </div>
                 <div className='google'>
-                    <span><FcGoogle />Google</span>
+                    <span onClick={GoogleLogin}><FcGoogle />Google</span>
                 </div>
-            </div>
+            </div> */}
 
 
 

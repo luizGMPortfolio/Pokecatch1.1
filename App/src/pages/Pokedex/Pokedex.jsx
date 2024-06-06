@@ -13,7 +13,7 @@ import Info from '../../components/Info';
 //context
 import { useAuthValue } from '../../context/AuthContext'
 import { useListValue } from '../../context/ListContext'
-import { Link } from 'react-router-dom';
+
 
 
 function Pokedex() {
