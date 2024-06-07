@@ -93,3 +93,14 @@
     opacity: 0.5;
     cursor: inherit;
 }
+
+.alert{
+    background-color: #24242450;
+    color: #fff;
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 25px;
+    font-family: "Slackey", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}

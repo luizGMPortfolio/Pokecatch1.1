@@ -122,7 +122,7 @@ const Profile = () => {
             </li>
           </ul>
         </div>
-        <div className='changeBackcard'>
+        {/*<div className='changeBackcard'>
           <div className='CB-Back'>
             <h3>BackCard</h3>
             {BackCards &&
@@ -133,7 +133,7 @@ const Profile = () => {
           <div className='EquipeB'>
             <button onClick={() => setDisplay('flex')}>Alterar</button>
           </div>
-        </div>
+        </div>*/}
         <button onClick={logout} className='exit'>Sair</button>
       </div>
     </>

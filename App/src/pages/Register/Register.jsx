@@ -94,7 +94,7 @@ const Register = ({ setRewards }) => {
       });
       insertConfigs({
         locations: location,
-        pokemons: [],
+        pokemons: 3,
         BackCard: 'padrão',
         Date: DiaAtual,
         uid: res.uid,

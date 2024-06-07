@@ -11,17 +11,23 @@
 }
 
 .location header {
-    width: 100%;
+    margin: 0 auto;
+    width: 90%;
     display: flex;
     justify-content: space-between;
 }
 
 .location .ContagemLocation {
-    color: #ffffffd2;
+    color: #000000;
+    background-color: #ffffff94;
+    border-radius: 35px;
+    width: initial;
+    padding: 10px;
 }
 
 .possibilities {
-    width: 100%;
+    margin: 0 auto;
+    width: 90%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -100,6 +106,7 @@
     width: 280px;
     height: 280px;
     animation: jump 4s infinite, rotate 15s infinite;
+    transition: 200ms;
 }
 
 @keyframes jump {
@@ -254,7 +261,7 @@
     justify-content: space-around;
     height: 50px;
     border-radius: 30px;
-    
+
 
 }
 
@@ -263,11 +270,13 @@
     width: 50px;
     height: 50px;
 }
-.pokeball span{
+
+.pokeball span {
     z-index: 101;
     text-align: center;
 }
-.pokeball div{
+
+.pokeball div {
     cursor: pointer;
 }
 
@@ -281,16 +290,18 @@
 .clikedImg {
     transform: rotate(-360deg);
 }
-.hide{
+
+.hide {
     display: none !important;
 }
 
-.pokebola{
+.pokebola {
     background: url('../../assets/pokebolas/padão.svg');
     background-position: center;
     background-size: cover;
 }
-.pokeball div{
+
+.pokeball div {
     width: 50px;
     display: flex;
     justify-content: center;
@@ -299,18 +310,95 @@
     font-size: 15px;
     font-weight: bold;
 }
-.great{
+
+.great {
     background: url('../../assets/pokebolas/greatBall.svg');
     background-position: center;
     background-size: cover;
 }
-.ultra{
+
+.ultra {
     background: url('../../assets/pokebolas/ultraBall.svg');
     background-position: center;
     background-size: cover;
 }
-.master{
+
+.master {
     background: url('../../assets/pokebolas/masterBall.svg');
     background-position: center;
     background-size: cover;
+}
+
+.throwPokeball {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    bottom: 50px;
+    left: -50px;
+
+}
+.check{
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    bottom: 40%;
+    left: 50%;
+    display: none;
+}
+.animation {
+    animation: throw 1s forwards;
+}
+.animation2{
+    display: flex;
+    transition: 200ms;
+    animation: try 1s ease-in-out 3;
+}
+.PokCatch{
+    scale: 0;
+}
+
+.vazio{
+    transition: 100ms;
+    opacity: 0.3;
+}
+
+@keyframes throw {
+    0% {
+        bottom: 50px;
+        left: -50px;
+    }
+
+    100% {
+        bottom: 40%;
+        left: 50%;
+        transform: rotate(1080deg);
+    }
+}
+
+@keyframes try {
+    0% {
+        bottom: 40%;
+        left: 50%;
+        transform: rotate(10deg);
+    }
+
+    50% {
+        bottom: 40%;
+        left: 50%;
+        transform: rotate(-10deg);
+    }
+
+    100% {
+        bottom: 40%;
+        left: 50%;
+        transform: rotate(10deg);
+    }
+}
+@keyframes Catch {
+    0%{
+        scale: 1;
+    }
+    100%{
+        scale: 0;
+    }
 }

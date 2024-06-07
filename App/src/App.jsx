@@ -71,6 +71,7 @@ function App() {
         if (NovoDia != DiaAtual) {
           const data = {
             locations: location,
+            pokemons: 3,
             Date: DiaAtual
 
           }

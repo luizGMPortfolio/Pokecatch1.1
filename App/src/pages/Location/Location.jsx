@@ -34,9 +34,9 @@ const Location = ({ setRewards }) => {
 
   const [pokemons, setPokemons] = useState([])
   const [pokemon, setPokemon] = useState(null)
-
+  const [ImgPokeball, setImgPokeball] = useState(null)
   const [capture_rate, setcapture_rate] = useState(null)
-
+  const [isAnimating, setIsAnimating] = useState(false);
   const [pokebolas, setPokebolas] = useState(null)
   const [enconters, setEnconters] = useState(null)
   const [active, setActive] = useState(false)
@@ -107,11 +107,11 @@ const Location = ({ setRewards }) => {
   useEffect(() => {
     if (status) {
       setEnconters(status[0].enconters)
-      if(!enconters){
+      if (!enconters) {
         const data = {
           enconters: status[0].enconters + 1
         }
-  
+
         updateStatus(status[0].id, data);
       }
     }
@@ -126,88 +126,132 @@ const Location = ({ setRewards }) => {
 
 
   const TryCatch = (pokeball) => {
-    var data = {}
+    void document.getElementById('check').classList.remove('animation2')
+    var data = null
     var difficulty = 0;
-    const num = Math.floor(Math.random() * 120);
+    const num = Math.floor(Math.random() * 100);
 
     if (capture_rate > 70) {
       difficulty = 30
     }
     else {
-      difficulty = capture_rate - 30
+      difficulty = capture_rate - 20
+      if(difficulty < 1){
+        difficulty = 1
+      }
     }
 
 
     switch (pokeball) {
       case 'great':
-        data = {
-          pokemons: Itens[0].pokemons,
-          pokebolas: {
-            pokebola: pokebolas.pokebola,
-            great: pokebolas.great - 1,
-            ultra: pokebolas.ultra,
-            master: pokebolas.master
-          },
-          time: Itens[0].time
+        if (pokebolas.great != 0) {
+          data = {
+            pokemons: Itens[0].pokemons,
+            pokebolas: {
+              pokebola: pokebolas.pokebola,
+              great: pokebolas.great - 1,
+              ultra: pokebolas.ultra,
+              master: pokebolas.master
+            },
+            time: Itens[0].time
+          }
         }
-        difficulty = difficulty + 15
+ 
+        difficulty = difficulty + 10
         break
       case 'ultra':
-        data = {
-          pokemons: Itens[0].pokemons,
-          pokebolas: {
-            pokebola: pokebolas.pokebola,
-            great: pokebolas.great,
-            ultra: pokebolas.ultra - 1,
-            master: pokebolas.master
-          },
-          time: Itens[0].time
+        if (pokebolas.ultra != 0) {
+          data = {
+            pokemons: Itens[0].pokemons,
+            pokebolas: {
+              pokebola: pokebolas.pokebola,
+              great: pokebolas.great,
+              ultra: pokebolas.ultra - 1,
+              master: pokebolas.master
+            },
+            time: Itens[0].time
+          }
         }
-        difficulty = difficulty + 30
+
+        difficulty = difficulty + 25
         break
       case 'master':
-        data = {
-          pokemons: Itens[0].pokemons,
-          pokebolas: {
-            pokebola: pokebolas.pokebola,
-            great: pokebolas.great,
-            ultra: pokebolas.ultra,
-            master: pokebolas.master - 1
-          },
-          time: Itens[0].time
+        if (pokebolas.master != 0) {
+          data = {
+            pokemons: Itens[0].pokemons,
+            pokebolas: {
+              pokebola: pokebolas.pokebola,
+              great: pokebolas.great,
+              ultra: pokebolas.ultra,
+              master: pokebolas.master - 1
+            },
+            time: Itens[0].time
+          }
         }
+
         difficulty = +1000
         break
       default:
-        data = {
-          pokemons: Itens[0].pokemons,
-          pokebolas: {
-            pokebola: pokebolas.pokebola - 1,
-            great: pokebolas.great,
-            ultra: pokebolas.ultra,
-            master: pokebolas.master
-          },
-          time: Itens[0].time
+        if (pokebolas.pokebola != 0) {
+          data = {
+            pokemons: Itens[0].pokemons,
+            pokebolas: {
+              pokebola: pokebolas.pokebola - 1,
+              great: pokebolas.great,
+              ultra: pokebolas.ultra,
+              master: pokebolas.master
+            },
+            time: Itens[0].time
+          }
         }
         break
     }
 
-    updateItens(Itens[0].id, data);
+    if (data) {
+      updateItens(Itens[0].id, data);
 
-    if (num < difficulty) {
-      console.log('Catch! number:' + num + ' Base difficulty:' + difficulty)
-      const NewRewards = {
-        pokemon: pokemon,
-        pokebolas: Rpokebolas
+      if (num < difficulty) {
+        console.log('Catch! number:' + num + ' Base difficulty:' + difficulty)
+        const NewRewards = {
+          pokemon: pokemon,
+          pokebolas: Rpokebolas
+        }
+        setRewards(NewRewards)
       }
-      setRewards(NewRewards)
+      else {
+        void document.getElementById('pokeEnconter').classList.remove('PokCatch')
+        console.log('No catch! number:' + num + ' Base difficulty:' + difficulty)
+      }
     }
-    else {
-      console.log('No catch! number:' + num + ' Base difficulty:' + difficulty)
-    }
+
+
+
 
   }
 
+  function startAnimation(clas) {
+    if (pokebolas[clas] != 0) {
+      setImgPokeball(clas)
+      setIsAnimating(false);
+      void document.getElementById('throwPokeball').offsetWidth;
+
+      setIsAnimating(true);
+    }
+    else {
+      console.log('sem Pokebolas')
+    }
+
+  }
+  function endAnimation() {
+    setIsAnimating(false);
+
+  }
+  const handleAnimationEnd = () => {
+    setIsAnimating(false);
+    void document.getElementById('pokeEnconter').classList.add('PokCatch')
+    void document.getElementById('check').offsetWidth;
+    void document.getElementById('check').classList.add('animation2')
+  };
 
   return (
     <div className={`location ${id}`}>
@@ -233,7 +277,7 @@ const Location = ({ setRewards }) => {
       </div>
       <div className='enconter'>
         {pokemon &&
-          <img src={pokemon.sprites.other["official-artwork"].front_default} alt="" />
+          <img id='pokeEnconter' src={pokemon.sprites.other["official-artwork"].front_default} alt="" />
         }
       </div>
       <menu className='menu'>
@@ -241,27 +285,61 @@ const Location = ({ setRewards }) => {
         <div className={`pokeball ${active ? 'cliked' : ''}`}>
           {pokebolas &&
             <>
-              <div onClick={() => TryCatch('ultra')} className={`${active ? '' : 'hide'} ultra`}>
+              <div
+                onClick={() => startAnimation('ultra')}
+                className={`${active ? '' : 'hide'} ultra ${pokebolas.ultra === 0 ? 'vazio' : ''}`}
+                onAnimationEnd={() => TryCatch('ultra')}
+              >
                 <span>{pokebolas.ultra}</span>
               </div>
-              <div onClick={() => TryCatch('great')} className={`${active ? '' : 'hide'} great`}>
+
+              <div
+                onClick={() => startAnimation('great')}
+                className={`${active ? '' : 'hide'} great ${pokebolas.great === 0 ? 'vazio' : ''}`}
+              >
                 <span>{pokebolas.great}</span>
               </div>
 
-              <img onClick={() => setActive(active ? false : true)} className={` ${active ? 'clikedImg' : ''}`} src={blackPoke} alt="" />
+              <img
+                onClick={() => setActive(active ? false : true)}
+                className={` ${active ? 'clikedImg' : ''}`} src={blackPoke} alt="" />
 
-              <div onClick={() => TryCatch('pokeball')} className={`${active ? '' : 'hide'} pokebola`}>
+              <div
+                onClick={() => startAnimation('pokebola')}
+                className={`${active ? '' : 'hide'} pokebola ${pokebolas.pokebola === 0 ? 'vazio' : ''}`}
+                onAnimationEnd={() => TryCatch('pokebola')}
+              >
                 <span>{pokebolas.pokebola}</span>
               </div>
-              <div onClick={() => TryCatch('master')} className={`${active ? '' : 'hide'} master`}>
+
+              <div
+                onClick={() => startAnimation('master')}
+                className={`${active ? '' : 'hide'} master ${pokebolas.master === 0 ? 'vazio' : ''}`}
+                onAnimationEnd={() => TryCatch('master')}
+              >
                 <span>{pokebolas.master}</span>
               </div>
-
             </>
           }
 
         </div>
       </menu>
+      {pokebolas &&
+        <>
+          <div
+            id='throwPokeball'
+            className={`throwPokeball ${isAnimating ? 'animation' : ''} ${ImgPokeball}`}
+            onAnimationEnd={() => handleAnimationEnd()}
+          ></div>
+
+          <div 
+          id='check' 
+          className={`check ${ImgPokeball}`}
+          onAnimationEnd={() => TryCatch(ImgPokeball)}
+          ></div>
+        </>
+
+      }
 
     </div>
   )

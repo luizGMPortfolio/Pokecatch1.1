@@ -32,11 +32,11 @@ export const useRandonPokeball = () => {
                         pokebola: 0,
                         great: 0,
                         ultra: 0,
-                        master: 1
+                        master:  1
                     }
                 }
-            }else if(RandonNunber <= 20){
-                const RandonNunber = Math.floor(Math.random() * 4);
+            }else if(RandonNunber <= 15){
+                const RandonNunber = Math.floor(Math.random() * 2);
                 data ={
                     imagem: ultraBall,
                     quantidade: RandonNunber + 1,
@@ -47,25 +47,25 @@ export const useRandonPokeball = () => {
                         master: 0
                     }
                 }
-            }else if(RandonNunber <= 50){
-                const RandonNunber = Math.floor(Math.random() * 5);
+            }else if(RandonNunber <= 25){
+                const RandonNunber = Math.floor(Math.random() * 3);
                 data ={
                     imagem: greatBall,
-                    quantidade: RandonNunber + 5,
+                    quantidade: RandonNunber + 2,
                     pokebolas: {
                         pokebola: 0,
-                        great: RandonNunber + 5,
+                        great: RandonNunber + 2,
                         ultra: 0,
                         master: 0
                     }
                 }
             }else if(RandonNunber <= 100){
-                const RandonNunber = Math.floor(Math.random() * 10);
+                const RandonNunber = Math.floor(Math.random() * 4);
                 data ={
                     imagem: pokebola,
-                    quantidade: RandonNunber + 5,
+                    quantidade: RandonNunber + 4,
                     pokebolas: {
-                        pokebola: RandonNunber + 5,
+                        pokebola: RandonNunber + 4,
                         great: 0,
                         ultra: 0,
                         master: 0
