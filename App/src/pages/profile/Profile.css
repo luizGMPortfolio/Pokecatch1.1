@@ -33,8 +33,12 @@
     font-size: 25px;
     color: #ddddddc7;
 }
+.perfil img{
+    max-width: 200px;
+    width: 100px;
+}
 .Equipe {
-    width: 95%;
+    width: 100%;
     background-color: #0000005e;
     border-radius: 20px;
     display: flex;
@@ -82,10 +86,14 @@
 }
 
 .changeBackcard {
-    width: 95%;
+    width: 100%;
     background-color: #0000005e;
     border-radius: 20px;
     padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 .CB-Back{
     display: flex;
@@ -107,6 +115,8 @@
 .p-top {
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .p-bottom {
@@ -164,4 +174,21 @@
 }
 .exit:hover{
     background-color: #ff2d2dec;
+}
+
+
+.soon{
+    width: 95%;
+    opacity: 0.7;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.coming{
+    position: absolute;
+    z-index: 200;
+    font-size: 60px;
+    font-family: "Kanit", sans-serif;
+    font-weight: bold;
+
 }

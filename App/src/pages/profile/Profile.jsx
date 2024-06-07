@@ -59,7 +59,7 @@ const Profile = () => {
   return (
     <>
       <Navbar />
-      <Modal display={display} setDisplay={setDisplay} backcards={BackCards}/>
+      <Modal display={display} setDisplay={setDisplay} backcards={BackCards} />
       <div className='Use'>
         <div className='perfil'>
           <div className='p-top'>
@@ -80,26 +80,10 @@ const Profile = () => {
               <span>{perfil && perfil.legendary}</span>
             </div>
           </div>
-          {/*<div className='Equipe'>
-          <h3>Sua equipe</h3>
-          <div className='cards'>
-            {!loading &&
-              time.map((pokemon) => (
-                <Card
-                  name={pokemon.name}
-                  img={pokemon.sprites.other["official-artwork"].front_default}
-                  types={pokemon.types}
-                  num={pokemon.id}
-                />
-              ))
 
-            }
-          </div>
-          <div className='EquipeB'>
-            <button>Alterar</button>
-          </div>
 
-        </div>*/}
+
+
         </div>
         <div className='itens'>
           <h3>Itens</h3>
@@ -122,18 +106,44 @@ const Profile = () => {
             </li>
           </ul>
         </div>
-        {/*<div className='changeBackcard'>
-          <div className='CB-Back'>
-            <h3>BackCard</h3>
-            {BackCards &&
-              <img src={backcards} alt="" />
-            }
+        <div className='soon'>
+          
+          <div className='Equipe'>
+          <span className='coming'>coming soon</span>
+            <h3>Sua equipe</h3>
+            <div className='cards'>
+              {!loading &&
+                time.map((pokemon) => (
+                  <Card
+                    name={pokemon.name}
+                    img={pokemon.sprites.other["official-artwork"].front_default}
+                    types={pokemon.types}
+                    num={pokemon.id}
+                  />
+                ))
+
+              }
+            </div>
+            <div className='EquipeB'>
+              <button>Alterar</button>
+            </div>
 
           </div>
-          <div className='EquipeB'>
-            <button onClick={() => setDisplay('flex')}>Alterar</button>
+          <div className='changeBackcard'>
+          <span className='coming'>coming soon</span>
+            <div className='CB-Back'>
+              <h3>BackCard</h3>
+              {BackCards &&
+                <img src={backcards} alt="" />
+              }
+
+            </div>
+            <div className='EquipeB'>
+              <button onClick={() => setDisplay('flex')}>Alterar</button>
+            </div>
           </div>
-        </div>*/}
+        </div>
+
         <button onClick={logout} className='exit'>Sair</button>
       </div>
     </>
