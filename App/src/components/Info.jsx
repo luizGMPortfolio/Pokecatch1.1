@@ -21,10 +21,10 @@ const Info = ({ num, setInfo }) => {
         async function Getdata() {
 
             const PokemonData = await FetchPokemon('pokemon', num)
-            console.log(PokemonData)
+
             setPokemon(PokemonData)
             const SpeciesData = await FetchPokemon('pokemon-species', num)
-            console.log(SpeciesData)
+
             setSpecies(SpeciesData)
 
         }
@@ -36,7 +36,7 @@ const Info = ({ num, setInfo }) => {
     useEffect(() => {
         async function Getdata() {
             const EvolvesData = await FetchPokemon(null, null, species.evolution_chain.url)
-            console.log(EvolvesData)
+
             setEvolves(EvolvesData)
         }
         if (species) {
@@ -115,7 +115,7 @@ const Info = ({ num, setInfo }) => {
         pokemon.types.map(async (type) => {
             dataType.push(await FetchPokemon(null, null, type.type.url))
         })
-        console.log(dataType)
+
         setDamages(dataType)
     }
 

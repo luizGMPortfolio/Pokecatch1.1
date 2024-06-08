@@ -30,7 +30,7 @@ export const useLocationsChange = () => {
         try {
             const snapshot = await get(child(dbRef, path));
             if (snapshot.exists()) {
-                console.log(snapshot.val())
+
                 return snapshot.val()
             } else {
                 console.log("No data available");
@@ -69,7 +69,6 @@ export const useLocationsChange = () => {
         }
 
         setLocation(data)
-        console.log(data)
 
     };
 

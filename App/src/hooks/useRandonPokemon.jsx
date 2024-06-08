@@ -105,7 +105,7 @@ export const useRandonPokemon = () => {
 
 
         }
-        console.log(type)
+
         return type
 
     }

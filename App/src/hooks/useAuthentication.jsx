@@ -102,7 +102,7 @@ export const useAuthentication = () => {
             provider.addScope('email');
             const result = await signInWithPopup(auth, provider);
 
-            console.log(result)
+
         } catch (error) {
             console.log(error.message)
             console.log(typeof error.message)

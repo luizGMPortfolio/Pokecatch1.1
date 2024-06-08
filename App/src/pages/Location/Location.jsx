@@ -211,7 +211,7 @@ const Location = ({ setRewards }) => {
       updateItens(Itens[0].id, data);
 
       if (num < difficulty) {
-        console.log('Catch! number:' + num + ' Base difficulty:' + difficulty)
+
         const NewRewards = {
           pokemon: pokemon,
           pokebolas: Rpokebolas
@@ -220,7 +220,7 @@ const Location = ({ setRewards }) => {
       }
       else {
         void document.getElementById('pokeEnconter').classList.remove('PokCatch')
-        console.log('No catch! number:' + num + ' Base difficulty:' + difficulty)
+
       }
     }
 
@@ -236,9 +236,6 @@ const Location = ({ setRewards }) => {
       void document.getElementById('throwPokeball').offsetWidth;
 
       setIsAnimating(true);
-    }
-    else {
-      console.log('sem Pokebolas')
     }
 
   }

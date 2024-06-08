@@ -27,7 +27,7 @@ const Modal = ({ display, setDisplay, backcards }) => {
 
     function handleUpdate(BackCard) {
 
-        console.log(BackCard)
+
 
         updateDocument(ConfigId, {
             BackCard

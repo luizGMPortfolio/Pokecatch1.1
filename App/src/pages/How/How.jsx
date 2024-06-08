@@ -56,7 +56,6 @@ const How = ({ setRewards }) => {
       const data = {
         pokemons: trys - 1
       }
-      console.log(NewRewards)
       setRewards(NewRewards)
       updateConfigs(Configs[0].id, data)
     }
@@ -71,13 +70,7 @@ const How = ({ setRewards }) => {
         RandonHowPokemons()
       } else {
         setChoiseError(ChoiseError + 1)
-        console.log(ChoiseError)
       }
-
-      console.log(id)
-
-
-
     }
   }
 

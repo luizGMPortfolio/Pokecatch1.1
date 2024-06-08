@@ -38,7 +38,6 @@ const Profile = () => {
 
   useEffect(() => {
     if (itens) {
-      console.log(itens[0])
       setTime(itens[0].time)
       setPokebolas(itens[0].pokebolas)
     }
